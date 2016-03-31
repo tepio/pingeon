@@ -1,0 +1,13 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "mongodb": "mongodb://localhost:27017/notificationMicroservice",
+  "public": "../public/",
+  "auth": {
+    "idField": "id",
+    "token": {
+      "secret": "gnAziVW1/qmt8UDQcjlOMR4SLv5+ij/OoCtqWbZ1xsuozGpgt19RjbaJSfrSc4bolDEVn3Q639HXNW+9mJYPzQ=="
+    },
+    "local": {}
+  }
+}
