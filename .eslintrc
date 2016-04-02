@@ -15,8 +15,9 @@
     "lt": true,
     "chai": true,
     "sinon": true,
+    "assert": true,
     "mockery": true,
-    "supertest": true,
+    "fetcher": true,
     "expect": true
   },
   "extends": "airbnb/base",
@@ -24,6 +25,7 @@
     "quotes": [2, "single"],
     "handle-callback-err": 2,
     "no-trailing-spaces": 0,
+    "prefer-template": 0,
     "comma-dangle": 0,
     "no-param-reassign": 0,
     "func-names": 0
