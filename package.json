@@ -18,7 +18,7 @@
     "node": ">= 0.12.0"
   },
   "scripts": {
-    "test": "npm run jshint && npm run mocha",
+    "test": "npm run lint && npm run mocha",
     "lint": "eslint ./",
     "start": "babel-node src/",
     "mocha": "mocha test/ --compilers js:babel-core/register --recursive"
