@@ -17,7 +17,7 @@
     "sinon": true,
     "assert": true,
     "mockery": true,
-    "fetcher": true,
+    "request": true,
     "expect": true
   },
   "extends": "airbnb/base",
@@ -25,6 +25,7 @@
     "quotes": [2, "single"],
     "handle-callback-err": 2,
     "no-trailing-spaces": 0,
+    "arrow-body-style": 0,
     "prefer-template": 0,
     "comma-dangle": 0,
     "no-param-reassign": 0,
