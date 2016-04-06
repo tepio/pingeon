@@ -1,6 +1,5 @@
-const authentication = require('./authentication');
-const user = require('./user');
 const mongoose = require('mongoose');
+const recipient = require('./recipient');
 
 module.exports = function () {
   const app = this;
@@ -8,6 +7,5 @@ module.exports = function () {
   mongoose.connect(app.get('mongodb'));
   mongoose.Promise = global.Promise;
 
-  app.configure(authentication);
-  app.configure(user);
+  app.configure(recipient);
 };
