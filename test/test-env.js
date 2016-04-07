@@ -15,3 +15,4 @@ global.app = app;
 global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;
+global.ctx = {};
