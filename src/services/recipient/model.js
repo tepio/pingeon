@@ -1,12 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const recipientSchema = new Schema({
-  text: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  firstName: String,
+  lastName: String,
+  lastActivity: Date,
+  appId: Schema.Types.ObjectId
 });
 
-const recipientModel = mongoose.model('recipient', recipientSchema);
-
-module.exports = recipientModel;
+module.exports = mongoose.model('recipient', recipientSchema);
