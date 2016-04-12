@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+
 const recipient = require('./recipient');
+const provider = require('./provider');
 const recipientProvider = require('./recipient-provider');
 
 module.exports = function () {
@@ -9,5 +11,6 @@ module.exports = function () {
   mongoose.Promise = global.Promise;
 
   app.configure(recipient);
+  app.configure(provider);
   app.configure(recipientProvider);
 };
