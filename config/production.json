@@ -2,12 +2,8 @@
   "host": "0.0.0.0",
   "port": "PORT",
   "mongodb": "DATABASE_URL",
-  "public": "../public/",
-  "auth": {
-    "idField": "id",
-    "token": {
-      "secret": "FEATHERS_AUTH_SECRET"
-    },
-    "local": {}
+  "pubsub": {
+    "id": "PUBSUB_ID",
+    "key": "PUBSUB_KEY"
   }
 }
