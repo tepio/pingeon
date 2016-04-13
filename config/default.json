@@ -5,5 +5,9 @@
   "pubsub": {
     "id": "bab60de7",
     "key": "0nabkCiVoCSxErMPhdsIFQ=="
+  },
+  "email": {
+    "key": "5pwwJkeIFIVKMbYct3CT2A",
+    "from": "noreply@pingeon.com"
   }
 }

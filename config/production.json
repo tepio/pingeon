@@ -5,5 +5,9 @@
   "pubsub": {
     "id": "PUBSUB_ID",
     "key": "PUBSUB_KEY"
+  },
+  "email": {
+    "key": "EMAIL_KEY",
+    "from": "EMAIL_FROM"
   }
 }
