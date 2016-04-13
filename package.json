@@ -44,6 +44,8 @@
     "feathers-hooks": "1.5.1",
     "feathers-mongoose": "3.3.6",
     "feathers-rest": "1.2.4",
+    "lodash": "4.11.0",
+    "mandrill-api": "1.0.45",
     "mockery": "1.4.1",
     "mongoose": "4.4.10",
     "passport": "0.3.2",
