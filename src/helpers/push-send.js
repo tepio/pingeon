@@ -5,6 +5,7 @@ module.exports = function (app) {
 
   const { key, secret, region } = app.get('push');
   const awsUtils = require('../helpers/aws-utils')(app);
+  
   AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
   const sns = promisifyAll(new AWS.SNS());
   const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../helpers/queue')(app);

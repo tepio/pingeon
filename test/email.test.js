@@ -1,6 +1,6 @@
 require('./test-env');
 
-const emailProvider = require('../src/providers/email')();
+const emailProvider = require('../src/helpers/email')();
 const email = 'kozzztya@gmail.com';
 const template = 'thank-you-registering';
 const vars = { completeregistration: 'some' };

@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const pubsub = require('../../../providers/pubsub')(app);
+  const pubsub = require('../../../helpers/pubsub')(app);
 
   return (data, params) => {
     const message = data;

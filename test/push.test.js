@@ -8,7 +8,7 @@ sinon.stub(require('aws-sdk'), 'SNS', () => ({
   publishAsync: publishStub
 }));
 
-const pushProvider = require('../src/providers/push')(app);
+const pushProvider = require('../src/helpers/push-send')(app);
 const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../src/helpers/queue')(app);
 const platform = 'android';
 const token = String(new Date());

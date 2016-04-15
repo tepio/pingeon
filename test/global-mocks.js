@@ -1,6 +1,6 @@
 const mockery = require('mockery');
-const pubsubSubstitute = ['../src/providers/pubsub', './mocks/pubsub.mock.js'];
-const emailSubstitute = ['../src/providers/email', './mocks/email.mock.js'];
+const pubsubSubstitute = ['../src/helpers/pubsub', './mocks/pubsub.mock.js'];
+const emailSubstitute = ['../src/helpers/email', './mocks/email.mock.js'];
 
 function register() {
   mockery.enable({ warnOnUnregistered: false });
