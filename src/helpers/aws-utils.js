@@ -24,6 +24,10 @@ module.exports = function (app) {
   const getPlatformApplicationArn = (platform) => {
     return platform === 'android' ? gsmAppArn : apnsAppArn;
   };
+  
+  const getLogGroup = (platformApplicationArn) => {
+    return platformApplicationArn.replace('arn:aws:sns:', 'sns/').replace(/:/g, '/');
+  };
 
-  return { getPushMessage, getPlatformApplicationArn };
+  return { getPushMessage, getPlatformApplicationArn, getLogGroup };
 };

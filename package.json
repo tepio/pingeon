@@ -24,6 +24,7 @@
     "mocha": "NODE_ENV=test mocha test/"
   },
   "dependencies": {
+    "async": "1.5.2",
     "aws-sdk": "2.3.3",
     "axios": "0.9.1",
     "babel-cli": "6.6.5",
@@ -37,6 +38,7 @@
     "compression": "1.6.1",
     "cors": "2.7.1",
     "debug": "2.2.0",
+    "deep-extend": "0.4.1",
     "fanoutpub": "1.0.3",
     "faye": "1.1.2",
     "feathers": "2.0.0",
