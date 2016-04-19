@@ -7,7 +7,7 @@ const recipientProvider = require('./recipient-provider');
 module.exports = function () {
   const app = this;
 
-  mongoose.connect(app.get('mongodb'));
+  mongoose.connect(app.get('db').url);
   mongoose.Promise = global.Promise;
 
   app.configure(recipient);

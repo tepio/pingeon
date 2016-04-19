@@ -12,6 +12,7 @@ global.app = app;
 global.sinon = sinon;
 global.mockery = mockery;
 global.mocks = require('./global-mocks');
+global.helpers = require('./helpers');
 global.ctx = {};
 
 global.mocks.register();
