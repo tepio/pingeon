@@ -1,7 +1,9 @@
 {
   "host": "localhost",
   "port": 3030,
-  "mongodb": "mongodb://localhost:27017/notificationMicroservice",
+  "db": {
+    "url": "mongodb://localhost:27017/notificationMicroservice"
+  },
   "pubsub": {
     "id": "bab60de7",
     "key": "0nabkCiVoCSxErMPhdsIFQ=="

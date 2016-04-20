@@ -1,7 +1,9 @@
 {
   "host": "0.0.0.0",
   "port": "PORT",
-  "mongodb": "DATABASE_URL",
+  "db": {
+    "url": "DATABASE_URL"
+  },
   "pubsub": {
     "id": "PUBSUB_ID",
     "key": "PUBSUB_KEY"

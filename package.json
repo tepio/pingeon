@@ -61,14 +61,12 @@
   },
   "devDependencies": {
     "babel-eslint": "6.0.2",
+    "chai": "3.5.0",
     "eslint": "2.6.0",
     "eslint-config-airbnb": "6.2.0",
     "jshint": "2.9.1",
     "mocha": "2.4.5",
-    "mocha-mongoose": "1.2.0",
-    "sinon": "1.17.3",
-    "sinon-chai": "2.8.0",
-    "chai": "3.5.0",
-    "request": "2.69.0"
+    "request": "2.69.0",
+    "sinon": "1.17.3"
   }
 }
