@@ -1,9 +1,30 @@
 import mongoose, { Schema } from 'mongoose';
+import feathersMongoose from 'feathers-mongoose';
 
-const recipientProviderSchema = new Schema({
-  channel: String,
-  key: String,
-  recipientId: Schema.Types.ObjectId
+const schema = new Schema({
+  recipientId: {
+    type: String,
+    required: true
+  },
+  providerType: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  platform: {
+    type: String,
+    enum: ['android', 'ios']
+  },
+  registeredDate: {
+    type: Date,
+    default: Date.now
+  },
+  deviceId: String
 });
 
-module.exports = mongoose.model('recipientProviders', recipientProviderSchema);
+const model = mongoose.model('recipientProviders', schema);
+
+module.exports = feathersMongoose({ Model: model });
