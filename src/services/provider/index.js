@@ -17,4 +17,8 @@ module.exports = function () {
     create: emailNotify(app)
   });
 
+  app.service('/provider/push/recipient/:recipientId', {
+    create() {}
+  });
+
 };
