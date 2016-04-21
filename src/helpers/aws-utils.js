@@ -1,3 +1,4 @@
+const IOS_TOKEN_MAX_DIGITS = 64;
 const _ = require('lodash');
 
 module.exports = function (app) {
@@ -24,10 +25,14 @@ module.exports = function (app) {
   const getPlatformApplicationArn = (platform) => {
     return platform === 'android' ? gsmAppArn : apnsAppArn;
   };
-  
+
   const getLogGroup = (platformApplicationArn) => {
     return platformApplicationArn.replace('arn:aws:sns:', 'sns/').replace(/:/g, '/');
   };
 
-  return { getPushMessage, getPlatformApplicationArn, getLogGroup };
+  const getPlatform = (token) => {
+    return token.length > IOS_TOKEN_MAX_DIGITS ? 'android' : 'ios';
+  };
+
+  return { getPushMessage, getPlatformApplicationArn, getLogGroup, getPlatform };
 };
