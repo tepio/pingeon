@@ -1,27 +1,22 @@
 require('./test-env');
 
-ctx.recipientProvider = {
-  deviceId: 'deviceId',
-  address: 'deviceToken',
-  platform: 'android'
-};
-
 describe('Recipient', () => {
+
+  before(() => ctx = {});
 
   describe('create', () => {
 
-    it('creates recipient with id', () => {
-      return request.post('/recipients').send()
-        .expect(201)
-        .expect(({ body }) => {
-          assert.ok(body._id);
-          ctx.recipient = body;
-        });
+    before(async() => {
+      ctx.recipient = await helpers.createRandomRecipient();
     });
 
     it('creates recipient provider', () => {
       return request.post(`/recipients/${ctx.recipient._id}/providers/push`)
-        .send(ctx.recipientProvider)
+        .send({
+          deviceId: 'deviceId',
+          address: 'deviceToken',
+          platform: 'android'
+        })
         .expect(201)
         .expect(({ body }) => {
           assert.equal(body.recipientId, ctx.recipient._id);

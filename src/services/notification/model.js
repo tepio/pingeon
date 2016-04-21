@@ -5,10 +5,6 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  providerType: {
-    type: String,
-    required: true
-  },
   address: {
     type: String,
     required: true
@@ -17,11 +13,14 @@ const schema = new Schema({
     type: String,
     enum: ['android', 'ios']
   },
-  registeredDate: {
-    type: Date,
-    default: Date.now
-  },
-  deviceId: String
-}); 
+  deviceId: String,
+  payload: Object,
+  message: String,
+  providerMessageId: String,
+  sendDate: Date,
+  received: Boolean,
+  receiveStatus: Object,
+  error: Object
+});
 
-module.exports = mongoose.model('recipientProviders', schema);
+module.exports = mongoose.model('notification', schema);

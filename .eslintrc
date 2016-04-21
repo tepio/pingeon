@@ -18,6 +18,7 @@
     "sinon": true,
     "assert": true,
     "mockery": true,
+    "mocks": true,
     "request": true,
     "expect": true,
     "helpers": true
