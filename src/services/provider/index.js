@@ -1,6 +1,7 @@
 const pubSubNotifyRecipient = require('./routes/pubsub-notify-recipient');
 const pubSubNotifyChannel = require('./routes/pubsub-notify-channel');
 const emailNotify = require('./routes/email-notify');
+const pushNotify = require('./routes/provider-push-notify');
 
 module.exports = function () {
   const app = this;
@@ -18,7 +19,7 @@ module.exports = function () {
   });
 
   app.service('/provider/push/recipient/:recipientId', {
-    create() {}
+    create: pushNotify(app)
   });
 
 };

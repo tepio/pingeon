@@ -1,5 +1,4 @@
 const RecipientProvider = require('../model');
-const _ = require('lodash');
 
 module.exports = () => async(data) => {
   const { platform, deviceId, address, recipientId } = data;
@@ -9,18 +8,13 @@ module.exports = () => async(data) => {
     providerType: 'push', registeredDate: new Date()
   };
 
-  const recipientProviderWithSameToken = _.first(await RecipientProvider.find({ query: { address } }));
+  const recipientProviderWithSameToken = await RecipientProvider.findOne({ address });
 
   if (recipientProviderWithSameToken && recipientProviderWithSameToken.recipientId !== recipientId) {
-    return RecipientProvider.patch(recipientProviderWithSameToken._id, newRecipientProvider, {});
+    return RecipientProvider.update({ _id: recipientProviderWithSameToken._id }, newRecipientProvider);
   }
 
-  const oldRecipientProvider = _.first(await RecipientProvider.find({ query: { deviceId, recipientId } }));
-
-  // update device token
-  if (oldRecipientProvider) {
-    return RecipientProvider.patch(oldRecipientProvider._id, newRecipientProvider, {});
-  }
-
-  return RecipientProvider.create(newRecipientProvider);
+  return await RecipientProvider.findOneAndUpdate(
+    { deviceId, recipientId }, newRecipientProvider, { new: true, upsert: true }
+  );
 };

@@ -1,16 +1,10 @@
 require('./test-env');
 
-const createEndpointStub = sinon.stub();
-const publishStub = sinon.stub();
-
-sinon.stub(require('aws-sdk'), 'SNS', () => ({
-  createPlatformEndpointAsync: createEndpointStub,
-  publishAsync: publishStub
-}));
+const { createEndpointStub, publishStub } = mocks.awsStub.getStubs();
 
 const pushProvider = require('../src/helpers/push-send')(app);
 const pushReceiveStatus = require('../src/helpers/push-receive-status')(app);
-const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../src/helpers/queue')(app);
+const { queueClient, PUSH_SENT_FAIL } = require('../src/helpers/queue')(app);
 const platform = 'android';
 const token = String(new Date());
 const message = 'Hello!';
@@ -23,6 +17,9 @@ describe('Push', () => {
 
     describe('success', () => {
 
+      before(() => ctx.pushSendSpy = sinon.spy(pushProvider, 'send'));
+      after(() => ctx.pushSendSpy.restore());
+      
       before(() => {
         createEndpointStub.returns({ EndpointArn: '1' });
         publishStub.returns({ MessageId: '2' });
@@ -32,26 +29,18 @@ describe('Push', () => {
         return pushProvider
           .send({ platform, token, message, payload })
           .then(res => {
-            ctx.pushSendRes = res;
+            assert.equal(res.platform, platform);
+            assert.equal(res.message, message);
+            assert.equal(res.token, token);
+            assert.deepEqual(res.payload, payload);
+            assert.ok(res.platformApplicationArn);
+            assert.ok(res.providerMessageId);
+            assert.ok(res.sendDate);
           });
       });
 
-      const assertSentResult = (res) => {
-        assert.equal(res.platform, platform);
-        assert.equal(res.message, message);
-        assert.equal(res.token, token);
-        assert.deepEqual(res.payload, payload);
-        assert.ok(res.platformApplicationArn);
-        assert.ok(res.providerMessageId);
-        assert.ok(res.sendDate);
-      };
-
-      it('should be sent', done => {
-        queueClient(PUSH_SENT).subscribe(res => {
-          assertSentResult(res);
-          assertSentResult(ctx.pushSendRes);
-          done();
-        });
+      it('should be sent', () => {
+        assert(ctx.pushSendSpy.called);
       });
 
     });
