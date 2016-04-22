@@ -7,7 +7,7 @@ describe('Provider pubsub', () => {
   describe('notify channel', () => {
 
     it('should send message', () => {
-      return request.post('/provider/pubsub/notify/channel/' + channel)
+      return request.post('/provider/pubsub/channel/' + channel)
         .send(message)
         .expect(201)
         .expect(({ body }) => {
