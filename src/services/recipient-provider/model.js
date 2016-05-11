@@ -1,3 +1,4 @@
+import normalizeToObject from '../../helpers/mongoose-pluging/normalize-to-object';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
@@ -22,6 +23,7 @@ const schema = new Schema({
     default: Date.now
   },
   deviceId: String
-}); 
+});
+schema.plugin(normalizeToObject);
 
 module.exports = mongoose.model('recipientProviders', schema);

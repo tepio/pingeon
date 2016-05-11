@@ -1,3 +1,4 @@
+import normalizeToObject from '../../helpers/mongoose-pluging/normalize-to-object';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
@@ -22,5 +23,6 @@ const schema = new Schema({
   receiveStatus: Object,
   error: Object
 });
+schema.plugin(normalizeToObject);
 
 module.exports = mongoose.model('notification', schema);
