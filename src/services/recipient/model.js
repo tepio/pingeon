@@ -1,3 +1,4 @@
+import normalizeToObject from '../../helpers/mongoose-pluging/normalize-to-object';
 import mongoose, { Schema } from 'mongoose';
 
 const recipientSchema = new Schema({
@@ -10,5 +11,6 @@ const recipientSchema = new Schema({
   lastActivity: Date,
   appId: Schema.Types.ObjectId
 });
+recipientSchema.plugin(normalizeToObject);
 
 module.exports = mongoose.model('recipient', recipientSchema);
