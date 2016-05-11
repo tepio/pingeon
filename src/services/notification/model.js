@@ -1,4 +1,4 @@
-import normalizeToObject from '../../helpers/mongoose-pluging/normalize-to-object';
+import simpleId from '../../helpers/mongoose-pluging/simple-id';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
@@ -23,6 +23,6 @@ const schema = new Schema({
   receiveStatus: Object,
   error: Object
 });
-schema.plugin(normalizeToObject);
+schema.plugin(simpleId);
 
 module.exports = mongoose.model('notification', schema);

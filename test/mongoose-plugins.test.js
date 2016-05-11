@@ -1,26 +1,30 @@
 require('./test-env');
 
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const Recipient = require('../src/services/recipient/model');
+
 const { ObjectId } = require('mongoose').mongo;
-const normalizeToObject = require('../src/helpers/mongoose-pluging/normalize-to-object');
-
-const schema = new Schema({});
-schema.plugin(normalizeToObject);
-
-const Some = mongoose.model('some', schema);
+const _id = new ObjectId();
 
 describe('Mongoose plugins', () => {
 
   describe('Normalize toObject', () => {
 
     it('should have id instead of _id', async() => {
-      const _id = new ObjectId();
-      const post = (await Some.create({ _id })).toObject();
+      const recipient = (await Recipient.create({ _id })).toObject();
 
-      assert.equal(String(post.id), String(_id));
-      assert(!post._id);
-      assert(!post.__v);
+      assert.equal(String(recipient.id), String(_id));
+      assert(!recipient._id);
+      assert(!recipient.__v);
+    });
+
+    it('should get over rest right', () => {
+      return request.get('/recipients/' + String(_id))
+        .expect(200)
+        .expect(({ body }) => {
+          assert.equal(String(body.id), String(_id));
+          assert(!body._id);
+          assert(!body.__v);
+        });
     });
 
   });
