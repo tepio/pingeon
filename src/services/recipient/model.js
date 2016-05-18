@@ -1,7 +1,7 @@
-import simpleId from '../../helpers/mongoose-pluging/simple-id';
+import renameId from 'mongoose-rename-id';
 import mongoose, { Schema } from 'mongoose';
 
-const recipientSchema = new Schema({
+const schema = new Schema({
   firstName: String,
   lastName: String,
   gender: {
@@ -11,6 +11,6 @@ const recipientSchema = new Schema({
   lastActivity: Date,
   appId: Schema.Types.ObjectId
 });
-recipientSchema.plugin(simpleId);
+schema.plugin(renameId({ newIdName: 'id', mongoose }));
 
-module.exports = mongoose.model('recipient', recipientSchema);
+module.exports = mongoose.model('recipient', schema);

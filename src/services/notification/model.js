@@ -1,4 +1,4 @@
-import simpleId from '../../helpers/mongoose-pluging/simple-id';
+import renameId from 'mongoose-rename-id';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
@@ -23,6 +23,6 @@ const schema = new Schema({
   receiveStatus: Object,
   error: Object
 });
-schema.plugin(simpleId);
+schema.plugin(renameId({ newIdName: 'id', mongoose }));
 
 module.exports = mongoose.model('notification', schema);

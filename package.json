@@ -54,6 +54,7 @@
     "mandrill-api": "1.0.45",
     "mockery": "1.4.1",
     "mongoose": "4.4.10",
+    "mongoose-rename-id": "git+https://github.com/tepio/mongoose-rename-id.git",
     "passport": "0.3.2",
     "promdash": "1.1.0",
     "serve-favicon": "2.3.0",
