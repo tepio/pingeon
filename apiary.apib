@@ -1,0 +1,129 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Pingeon
+
+Notification Microservice. 
+
+## Send a pub/sub message to a channel [/provider/pubsub/channel/{channel}]
+### /provider/pubsub/channel/{channel} [POST]
+
++ Parameters
+    + channel (string) - Where should be sent message.
+
++ Request (application/json)
+
+        {
+            "text": "Hello!"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": {
+                "text": "hello"
+            }
+        }
+
+## Send a pub/sub message to a recipient [/provider/pubsub/recipient/{recipientId}]
+### /provider/pubsub/recipient/{recipientId} [POST]
+
++ Parameters
+    + recipientId (string) - Who should get a message.
+
++ Request (application/json)
+
+        {
+            "text": "Hello!"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": {
+                "text": "hello"
+            }
+        }
+        
+## Send a message to an email address [/provider/email/address/{address}]
+### /provider/email/address/{address} [POST]
+
++ Parameters
+    + address (string) - Who should get a message.
+
++ Request (application/json)
+
+        {
+            "template": "thanks-for-register",
+            "vars": {
+                "name": "Kostyan"
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": "Sent"
+        }
+
+
+## Send an email to a recipient [/provider/email/recipient/{recipientId}]
+### /provider/email/recipient/{recipientId} [POST]
+
++ Parameters
+    + recipientId (string) - Who should get a message.
+
++ Request (application/json)
+
+        {
+            "template": "thanks-for-register",
+            "vars": {
+                "name": "Kostyan"
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": "Sent"
+        }
+
+## Send a push notification to an device token [/provider/push/token/{token}]
+### /provider/push/token/{token} [POST]
+
++ Parameters
+    + token (string) - Device that should get a push notification.
+
++ Request (application/json)
+
+        {
+            "platform": "ios",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": "Sent"
+        }
+
+## Send a push notification to a recipient [/provider/push/recipient/{recipientId}]
+### /provider/push/recipient/{recipientId} [POST]
+
++ Parameters
+    + recipientId (string) - Who should get a push notification.
+
++ Request (application/json)
+
+        {
+            "platform": "ios",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 200 (application/json)
+
+        {
+            "status": "Sent"
+        }
