@@ -29,25 +29,25 @@ describe('Device token registration', () => {
     });
 
     it('should have ids', () => {
-      assert.ok(ctx.bigBrother._id);
-      assert.ok(ctx.youngBrother._id);
-      assert.ok(ctx.firstPerson._id);
-      assert.ok(ctx.secondPerson._id);
-      assert.ok(ctx.personWithTwoDevices._id);
+      assert.ok(ctx.bigBrother.id);
+      assert.ok(ctx.youngBrother.id);
+      assert.ok(ctx.firstPerson.id);
+      assert.ok(ctx.secondPerson.id);
+      assert.ok(ctx.personWithTwoDevices.id);
     });
   });
 
   describe('Register recipient provider', () => {
 
     it('should be registered', () => {
-      return request.post(`/recipients/${ctx.personWithTwoDevices._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.personWithTwoDevices.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
           address: getDeviceToken()
         })
         .expect(({ body }) => {
-          assert.equal(body.recipientId, ctx.personWithTwoDevices._id);
+          assert.equal(body.recipientId, ctx.personWithTwoDevices.id);
           assert.equal(body.providerType, 'push');
         })
         .expect(201);
@@ -61,14 +61,14 @@ describe('Device token registration', () => {
     it('should be registered at first time', () => {
       ctx.firstDeviceToken = getDeviceToken();
 
-      return request.post(`/recipients/${ctx.personWithTwoDevices._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.personWithTwoDevices.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
           address: ctx.firstDeviceToken
         })
         .expect(({ body }) => {
-          ctx.firstRegisterRecipientProviderId = body._id;
+          ctx.firstRegisterRecipientProviderId = body.id;
         })
         .expect(201);
     });
@@ -78,7 +78,7 @@ describe('Device token registration', () => {
     it('should be registered at second time for same recipient', () => {
       ctx.secondDeviceToken = getDeviceToken();
 
-      return request.post(`/recipients/${ctx.personWithTwoDevices._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.personWithTwoDevices.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
@@ -86,13 +86,13 @@ describe('Device token registration', () => {
         })
         .expect(({ body }) => {
           assert.equal(body.address, ctx.secondDeviceToken, 'changed token');
-          assert.equal(body._id, ctx.firstRegisterRecipientProviderId, 'same recipient');
+          assert.equal(body.id, ctx.firstRegisterRecipientProviderId, 'same recipient');
         })
         .expect(201);
     });
 
     it('should not be old address', () => {
-      return request.get(`/recipients/${ctx.personWithTwoDevices._id}` +
+      return request.get(`/recipients/${ctx.personWithTwoDevices.id}` +
           `/providers/push?address=${ctx.firstDeviceToken}`)
         .expect(({ body }) => {
           assert(_.isEmpty(body));
@@ -105,7 +105,7 @@ describe('Device token registration', () => {
   describe('Register PNs on 2 devices', () => {
 
     before(() => {
-      return request.post(`/recipients/${ctx.personWithTwoDevices._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.personWithTwoDevices.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
@@ -117,7 +117,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.post(`/recipients/${ctx.personWithTwoDevices._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.personWithTwoDevices.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPadDeviceId,
@@ -129,7 +129,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.personWithTwoDevices._id}/providers/push`)
+      return request.get(`/recipients/${ctx.personWithTwoDevices.id}/providers/push`)
         .expect(({ body }) => {
           ctx.deviceTokens = body;
         });
@@ -141,8 +141,8 @@ describe('Device token registration', () => {
     });
 
     it('should be for one person', () => {
-      assert.equal(ctx.iPhoneRegister.recipientId, ctx.personWithTwoDevices._id);
-      assert.equal(ctx.iPadRegister.recipientId, ctx.personWithTwoDevices._id);
+      assert.equal(ctx.iPhoneRegister.recipientId, ctx.personWithTwoDevices.id);
+      assert.equal(ctx.iPadRegister.recipientId, ctx.personWithTwoDevices.id);
     });
 
     it('should be 2 device tokens', () => {
@@ -156,7 +156,7 @@ describe('Device token registration', () => {
     const tokenForOneInstall = getDeviceToken();
 
     before(() => {
-      return request.post(`/recipients/${ctx.bigBrother._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.bigBrother.id}/providers/push/register`)
         .send({
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
@@ -165,7 +165,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.post(`/recipients/${ctx.youngBrother._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.youngBrother.id}/providers/push/register`)
         .send({
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
@@ -174,7 +174,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.youngBrother._id}/providers/push` +
+      return request.get(`/recipients/${ctx.youngBrother.id}/providers/push` +
           `?deviceId=${androidDeviceId}`)
         .expect(({ body }) => {
           ctx.deviceTokensForAndroid = body;
@@ -182,7 +182,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.bigBrother._id}/providers/push`)
+      return request.get(`/recipients/${ctx.bigBrother.id}/providers/push`)
         .expect(({ body }) => {
           ctx.deviceTokensForBigBrother = body;
         });
@@ -194,7 +194,7 @@ describe('Device token registration', () => {
 
     it('should be android device token for young brother', () => {
       assert.equal(ctx.deviceTokensForAndroid[0].deviceId, androidDeviceId);
-      assert.equal(ctx.deviceTokensForAndroid[0].recipientId, ctx.youngBrother._id);
+      assert.equal(ctx.deviceTokensForAndroid[0].recipientId, ctx.youngBrother.id);
     });
 
     it('should be 0 device tokens for big brother', () => {
@@ -206,7 +206,7 @@ describe('Device token registration', () => {
   describe('Register users with coincided device id', () => {
 
     before(() => {
-      return request.post(`/recipients/${ctx.firstPerson._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.firstPerson.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
@@ -215,7 +215,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.post(`/recipients/${ctx.secondPerson._id}/providers/push/register`)
+      return request.post(`/recipients/${ctx.secondPerson.id}/providers/push/register`)
         .send({
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
@@ -224,7 +224,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.firstPerson._id}/providers/push` +
+      return request.get(`/recipients/${ctx.firstPerson.id}/providers/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
         .expect(({ body }) => {
           ctx.resultForFirstPerson = body;
@@ -232,7 +232,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.secondPerson._id}/providers/push` +
+      return request.get(`/recipients/${ctx.secondPerson.id}/providers/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
         .expect(({ body }) => {
           ctx.resultForSecondPerson = body;
@@ -245,7 +245,7 @@ describe('Device token registration', () => {
     });
 
     it('should be different documents', () => {
-      assert.notEqual(ctx.resultForFirstPerson[0]._id, ctx.resultForSecondPerson[0]._id);
+      assert.notEqual(ctx.resultForFirstPerson[0].id, ctx.resultForSecondPerson[0].id);
       assert.notEqual(ctx.resultForFirstPerson[0].address, ctx.resultForSecondPerson[0].address);
       assert.notEqual(ctx.resultForFirstPerson[0].recipientId, ctx.resultForSecondPerson[0].recipientId);
     });
@@ -255,12 +255,12 @@ describe('Device token registration', () => {
   describe('Unregister users with coincided device id', () => {
 
     before(() => {
-      return request.delete(`/recipients/${ctx.firstPerson._id}/providers/push`)
+      return request.delete(`/recipients/${ctx.firstPerson.id}/providers/push`)
         .send({ deviceId: coincidedIPhoneDeviceId });
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.firstPerson._id}/providers/push` +
+      return request.get(`/recipients/${ctx.firstPerson.id}/providers/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
         .expect(({ body }) => {
           ctx.resultForFirstPerson = body;
@@ -268,7 +268,7 @@ describe('Device token registration', () => {
     });
 
     before(() => {
-      return request.get(`/recipients/${ctx.secondPerson._id}/providers/push` +
+      return request.get(`/recipients/${ctx.secondPerson.id}/providers/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
         .expect(({ body }) => {
           ctx.resultForSecondPerson = body;

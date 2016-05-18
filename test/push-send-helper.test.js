@@ -13,12 +13,12 @@ const error = { message: 'Uh oh!' };
 
 describe('Push', () => {
 
+  before(() => ctx.pushSendSpy = sinon.spy(pushProvider, 'send'));
+  after(() => ctx.pushSendSpy.restore());
+
   describe('send', () => {
 
     describe('success', () => {
-
-      before(() => ctx.pushSendSpy = sinon.spy(pushProvider, 'send'));
-      after(() => ctx.pushSendSpy.restore());
       
       before(() => {
         createEndpointStub.returns({ EndpointArn: '1' });
@@ -45,7 +45,7 @@ describe('Push', () => {
 
     });
 
-    describe('fail', () => {
+    describe.skip('fail', () => {
 
       before(() => {
         createEndpointStub.returns({ EndpointArn: '1' });

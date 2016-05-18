@@ -11,7 +11,7 @@ describe('Recipient', () => {
     });
 
     it('creates recipient provider', () => {
-      return request.post(`/recipients/${ctx.recipient._id}/providers/push`)
+      return request.post(`/recipients/${ctx.recipient.id}/providers/push`)
         .send({
           deviceId: 'deviceId',
           address: 'deviceToken',
@@ -19,44 +19,44 @@ describe('Recipient', () => {
         })
         .expect(201)
         .expect(({ body }) => {
-          assert.equal(body.recipientId, ctx.recipient._id);
+          assert.equal(body.recipientId, ctx.recipient.id);
           assert.equal(body.providerType, 'push');
           ctx.recipientProvider = body;
         });
     });
 
     it('get one recipient provider', () => {
-      return request.get(`/recipients/${ctx.recipient._id}/providers/push/${ctx.recipientProvider._id}`)
+      return request.get(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
         .expect(200)
         .expect(({ body }) => {
-          assert.equal(body.recipientId, ctx.recipient._id);
+          assert.equal(body.recipientId, ctx.recipient.id);
         });
     });
 
     it('get all recipient providers', () => {
-      return request.get(`/recipients/${ctx.recipient._id}/providers/push`)
+      return request.get(`/recipients/${ctx.recipient.id}/providers/push`)
         .expect(200)
         .expect(({ body }) => {
-          assert.equal(body[0].recipientId, ctx.recipient._id);
+          assert.equal(body[0].recipientId, ctx.recipient.id);
         });
     });
 
     it('update recipient provider', () => {
-      return request.put(`/recipients/${ctx.recipient._id}/providers/push/${ctx.recipientProvider._id}`)
+      return request.put(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
         .send({ ...ctx.recipientProvider, address: 'new' })
         .expect(200)
         .expect(({ body }) => {
-          assert.equal(body.recipientId, ctx.recipient._id);
+          assert.equal(body.recipientId, ctx.recipient.id);
           assert.equal(body.address, 'new');
         });
     });
 
     it('patch recipient provider', () => {
-      return request.patch(`/recipients/${ctx.recipient._id}/providers/push/${ctx.recipientProvider._id}`)
+      return request.patch(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
         .send({ address: 'new' })
         .expect(200)
         .expect(({ body }) => {
-          assert.equal(body.recipientId, ctx.recipient._id);
+          assert.equal(body.recipientId, ctx.recipient.id);
           assert.equal(body.address, 'new');
         });
     });
@@ -64,15 +64,15 @@ describe('Recipient', () => {
     describe('remove recipient provider', () => {
 
       it('should response with removed', () => {
-        return request.delete(`/recipients/${ctx.recipient._id}/providers/push`)
+        return request.delete(`/recipients/${ctx.recipient.id}/providers/push`)
           .expect(200)
           .expect(({ body }) => {
-            assert.equal(body[0].recipientId, ctx.recipient._id);
+            assert.equal(body[0].recipientId, ctx.recipient.id);
           });
       });
 
       it('should give nothing', () => {
-        return request.get(`/recipients/${ctx.recipient._id}/providers/push`)
+        return request.get(`/recipients/${ctx.recipient.id}/providers/push`)
           .expect(200)
           .expect(({ body }) => {
             assert.equal(body.length, 0);

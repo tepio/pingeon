@@ -1,4 +1,4 @@
-import simpleId from '../../helpers/mongoose-pluging/simple-id';
+import renameId from 'mongoose-rename-id';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
@@ -24,6 +24,6 @@ const schema = new Schema({
   },
   deviceId: String
 });
-schema.plugin(simpleId);
+schema.plugin(renameId({ newIdName: 'id', mongoose }));
 
 module.exports = mongoose.model('recipientProviders', schema);
