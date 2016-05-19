@@ -3,7 +3,7 @@ module.exports = function () {
   async function send(email) {
     return [{
       email, status: 'sent',
-      _id: 'mocked',
+      _id: '13lf45gw5',
       reject_reason: null
     }];
   }
