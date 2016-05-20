@@ -7,8 +7,8 @@ describe('Provider pubsub', () => {
   describe('notify channel', () => {
 
     it('should send message', () => {
-      return request.post('/provider/pubsub/channel/' + channel)
-        .send(message)
+      return request.post('/provider/pubsub/channel')
+        .send({ message, channel })
         .expect(201)
         .expect(({ body }) => {
           assert.deepEqual(body.message, message);

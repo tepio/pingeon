@@ -6,8 +6,11 @@ const emailNotifyRecipient = require('./routes/email-notify-recipient');
 module.exports = function () {
   const app = this;
 
-  app.service('/provider/pubsub/channel/:channel', {
-    create: pubSubNotifyChannel(app)
+  app.service('/provider/pubsub/channel', {
+    create(data) {
+      const { channel, message } = data;
+      return pubSubNotifyChannel(app)({ channel, message });
+    }
   });
 
   app.service('/provider/push/recipient/:recipientId', {

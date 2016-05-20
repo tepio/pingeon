@@ -4,7 +4,25 @@ HOST: http://polls.apiblueprint.org/
 # Pingeon
 
 Notification Microservice.
-        
+
+## Send a pub/sub message to a channel [/provider/pubsub/channel]
+### /provider/pubsub/channel [POST]
+
++ Request (application/json)
+
+        {
+            "channel": "stream",
+            "message": {"text": "Hello!"}
+        }
+
++ Response 201
+
+        {
+            "channel": "stream",
+            "message": {"text": "Hello!"},
+            "statusCode": 200
+        }
+
 ## Send a message to an email address [/provider/email/address]
 ### /provider/email/address [POST]
 
