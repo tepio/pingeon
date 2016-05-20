@@ -1,10 +1,7 @@
 module.exports = (app) => {
   const pubsub = require('../../../helpers/pubsub')(app);
 
-  return (data, params) => {
-    const message = data;
-    const { channel } = params;
-    
+  return ({ channel, message }) => {
     return pubsub.pub(channel, message);
   };
 };

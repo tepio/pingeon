@@ -4,21 +4,37 @@ HOST: http://polls.apiblueprint.org/
 # Pingeon
 
 Notification Microservice.
-        
-## Send a message to an email address [/provider/email/address/{address}]
-### /provider/email/address/{address} [POST]
 
-+ Parameters
-    + address: example@gmail.com (string) - Who should get a message.
+## Send a pub/sub message to a channel [/provider/pubsub/channel]
+### /provider/pubsub/channel [POST]
 
 + Request (application/json)
 
         {
-            "template": "thanks-for-register",
-            "vars": {
-                "name": "Kostyan"
-            }
+            "channel": "stream",
+            "message": {"text": "Hello!"}
         }
+
++ Response 201
+
+        {
+            "channel": "stream",
+            "message": {"text": "Hello!"},
+            "statusCode": 200
+        }
+
+## Send a message to an email address [/provider/email/address]
+### /provider/email/address [POST]
+
++ Request (application/json)
+
+    {
+         "address": "example@gmail.com",
+         "template": "thanks-for-register",
+         "vars": {
+             "name": "Kostyan"
+         }
+    }
 
 + Response 201
 
@@ -27,3 +43,45 @@ Notification Microservice.
         "status":"sent",
         "_id":"13lf45gw5","reject_reason":null
     }]
+
+## Send a message to an email address [/provider/email/recipient]
+### /provider/email/recipient [POST]
+
++ Request (application/json)
+
+    {
+         "recipientId": "1",
+         "template": "thanks-for-register",
+         "vars": {
+             "name": "Kostyan"
+         }
+    }
+
++ Response 201
+
+    [{
+        "email":"example@gmail.com",
+        "status":"sent",
+        "_id":"13lf45gw5","reject_reason":null
+    }]
+
+## Send a push notification to a recipient [/provider/push/recipient]
+### /provider/push/recipient [POST]
+
++ Request (application/json)
+
+        {
+            "recipientId": "1",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 201
+
+        [{
+            "message": "Hello",
+            "providerMessageId": "2",
+            "payload": {},
+            "sendDate": "2016-05-20T17:19:15.602Z",
+            "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
+        }]
