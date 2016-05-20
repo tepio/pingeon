@@ -14,21 +14,17 @@ module.exports = function () {
     create: pushNotify(app)
   });
 
-  app.service('/provider/email/address/:address', {
-    create(data, params) {
-      const { template, vars } = data;
-      const { address } = params;
-
+  app.service('/provider/email/address', {
+    create(data) {
+      const { template, vars, address } = data;
       return emailNotifyAddress(app)({ address, template, vars });
     }
   });
 
-  app.service('/provider/email/recipient/:recipientId', {
-    create(data, params) {
-      const { template, vars } = data;
-      const { recipientId } = params;
-
-      emailNotifyRecipient(app)({ recipientId, template, vars });
+  app.service('/provider/email/recipient', {
+    create(data) {
+      const { template, vars, recipientId } = data;
+      return emailNotifyRecipient(app)({ recipientId, template, vars });
     }
   });
 

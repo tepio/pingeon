@@ -19,6 +19,7 @@ describe('Recipient', () => {
         })
         .expect(201)
         .expect(({ body }) => {
+          console.log(body);
           assert.equal(body.recipientId, ctx.recipient.id);
           assert.equal(body.providerType, 'push');
           ctx.recipientProvider = body;

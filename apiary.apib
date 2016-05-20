@@ -5,20 +5,39 @@ HOST: http://polls.apiblueprint.org/
 
 Notification Microservice.
         
-## Send a message to an email address [/provider/email/address/{address}]
-### /provider/email/address/{address} [POST]
-
-+ Parameters
-    + address: example@gmail.com (string) - Who should get a message.
+## Send a message to an email address [/provider/email/address]
+### /provider/email/address [POST]
 
 + Request (application/json)
 
-        {
-            "template": "thanks-for-register",
-            "vars": {
-                "name": "Kostyan"
-            }
-        }
+    {
+         "address": "example@gmail.com",
+         "template": "thanks-for-register",
+         "vars": {
+             "name": "Kostyan"
+         }
+    }
+
++ Response 201
+
+    [{
+        "email":"example@gmail.com",
+        "status":"sent",
+        "_id":"13lf45gw5","reject_reason":null
+    }]
+
+## Send a message to an email address [/provider/email/recipient]
+### /provider/email/recipient [POST]
+
++ Request (application/json)
+
+    {
+         "recipientId": "1",
+         "template": "thanks-for-register",
+         "vars": {
+             "name": "Kostyan"
+         }
+    }
 
 + Response 201
 
