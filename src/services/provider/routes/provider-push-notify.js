@@ -1,8 +1,9 @@
 const RecipientProvider = require('../../recipient-provider/model');
 const Notification = require('../../notification/model');
 const _ = require('lodash');
+const Promise = require('bluebird');
 
-module.exports = (app) => async(data, props) => {
+module.exports = (app) => async({ message, payload, recipientId }) => {
   const pushHelper = require('../../../helpers/push-send')(app);
 
   async function createNotifications({ recipientId, message, payload }) {
@@ -16,15 +17,11 @@ module.exports = (app) => async(data, props) => {
     );
   }
 
-  function sendNotifications(toSend) {
-    _.each(toSend, push => pushHelper.send(push));
+  function send(toSend) {
+    return Promise.map(toSend, push => pushHelper.send(push));
   }
 
-  const { message, payload } = data;
-  const { recipientId } = props;
+  const pushes = await createNotifications({ recipientId, message, payload });
 
-  return _(await createNotifications({ recipientId, message, payload }))
-    .tap(sendNotifications)
-    .value();
-
+  return await send(pushes);
 };

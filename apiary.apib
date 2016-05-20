@@ -64,3 +64,24 @@ Notification Microservice.
         "status":"sent",
         "_id":"13lf45gw5","reject_reason":null
     }]
+
+## Send a push notification to a recipient [/provider/push/recipient]
+### /provider/push/recipient [POST]
+
++ Request (application/json)
+
+        {
+            "recipientId": "1",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 201
+
+        [{
+            "message": "Hello",
+            "providerMessageId": "2",
+            "payload": {},
+            "sendDate": "2016-05-20T17:19:15.602Z",
+            "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
+        }]

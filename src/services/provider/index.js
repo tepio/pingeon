@@ -13,8 +13,11 @@ module.exports = function () {
     }
   });
 
-  app.service('/provider/push/recipient/:recipientId', {
-    create: pushNotify(app)
+  app.service('/provider/push/recipient', {
+    create(data) {
+      const { message, payload, recipientId } = data;
+      return pushNotify(app)({ message, payload, recipientId });
+    }
   });
 
   app.service('/provider/email/address', {
