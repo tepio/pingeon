@@ -34,4 +34,11 @@ module.exports = function () {
     }
   });
 
+  app.service('/provider/batch', {
+    create(data) {
+      const { template, vars, recipientId } = data;
+      return emailNotifyRecipient(app)({ recipientId, template, vars });
+    }
+  });
+
 };
