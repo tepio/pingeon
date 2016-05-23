@@ -3,7 +3,7 @@ custom:
   apiaryApiKey: a4eae57dedfb2b890d8890bf29a7e96d
   apiaryApiName: pingeon
 dry-run: null
-hookfiles: './test/dredd-hooks/*.test.js'
+hookfiles: 'test/api/hooks/*'
 language: nodejs
 sandbox: false
 server: npm run server:mocked
@@ -31,5 +31,5 @@ hooks-worker-term-timeout: 5000
 hooks-worker-term-retry: 500
 hooks-worker-handler-host: localhost
 hooks-worker-handler-port: 61321
-blueprint: apiary.apib
+blueprint: ['apiary.apib', 'test/api/*.apib']
 endpoint: 'http://localhost:3031'

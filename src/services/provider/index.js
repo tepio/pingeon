@@ -2,6 +2,7 @@ const pubSubNotifyChannel = require('./routes/provider-pubsub-notify-channel');
 const pushNotify = require('./routes/provider-push-notify');
 const emailNotifyAddress = require('./routes/email-notify-address');
 const emailNotifyRecipient = require('./routes/email-notify-recipient');
+const batchNotify = require('./routes/batch-notify');
 
 module.exports = function () {
   const app = this;
@@ -35,10 +36,7 @@ module.exports = function () {
   });
 
   app.service('/provider/batch', {
-    create(data) {
-      const { template, vars, recipientId } = data;
-      return emailNotifyRecipient(app)({ recipientId, template, vars });
-    }
+    create: batchNotify
   });
 
 };

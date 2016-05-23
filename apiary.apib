@@ -85,3 +85,50 @@ Notification Microservice.
             "sendDate": "2016-05-20T17:19:15.602Z",
             "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
         }]
+
+## Send a batch of notifications [/provider/batch]
+### /provider/batch [POST]
+
++ Request (application/json)
+
+        {
+          "message": "common message",
+          "recipients": [
+            {
+              "provider": "email",
+              "data": {
+                "address": "test@tep.io",
+                "template": "some",
+                "vars": {}
+              }
+            },
+            {
+              "provider": "email",
+              "data": {
+                "recipientId": "1",
+                "template": "some",
+                "vars": {}
+              }
+            },
+            {
+              "provider": "fanout",
+              "data": {
+                "channel": "stream",
+                "message": "some"
+              }
+            },
+            {
+              "provider": "push",
+              "data": {
+                "receiverId": "1",
+                "payload": {}
+              }
+            }
+          ]
+        }
+
++ Response 201
+
+        {
+            "status": "queued"
+        }
