@@ -1,5 +1,5 @@
 const { before } = require('hooks');
-const helpers = require('../helpers');
+const helpers = require('../../helpers');
 
 before('Send a push notification to a recipient > /provider/push/recipient', async(transaction, done) => {
   const { recipientId } = await helpers.createRecipientProfile({ providerType: 'push' });

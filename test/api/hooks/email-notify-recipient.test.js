@@ -1,5 +1,5 @@
 const { before } = require('hooks');
-const helpers = require('../helpers');
+const helpers = require('../../helpers');
 
 before('Send a message to an email address > /provider/email/recipient', async(transaction, done) => {
   const { recipientId } = await helpers.createRecipientProfile({ providerType: 'email' });

@@ -1,0 +1,9 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+### No recipients [POST /provider/batch]
+
++ Request (application/json)
+    {"message": "some", "recipients": []}
++ Response 400
+    {}

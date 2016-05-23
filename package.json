@@ -21,7 +21,7 @@
     "test": "npm run lint && npm run mocha && npm run dredd",
     "lint": "eslint ./",
     "start": "babel-node src/",
-    "server:mocked": "babel-node test/dredd-hooks/mocked-server.js",
+    "server:mocked": "babel-node test/api/mocked-server.js",
     "mocha": "NODE_ENV=test mocha test/*.test.js",
     "dredd": "babel-node `which dredd`"
   },
@@ -52,6 +52,7 @@
     "feathers-hooks": "1.5.1",
     "feathers-mongoose": "3.3.6",
     "feathers-rest": "1.2.4",
+    "http-errors": "1.5.0",
     "lodash": "4.11.0",
     "mandrill-api": "1.0.45",
     "mockery": "1.4.1",
