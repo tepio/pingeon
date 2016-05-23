@@ -1,33 +1,30 @@
 const _ = require('lodash');
+const config = require('config');
+const { title, gsmAppArn, apnsAppArn } = config.get('push');
 
-module.exports = function (app) {
+function getPushMessage({ platform, message, payload }) {
+  const pushMessage = {};
 
-  const { title, gsmAppArn, apnsAppArn } = app.get('push');
+  if (platform === 'android') {
+    pushMessage.GCM = { data: { message, title, payload } };
+  } else if (platform === 'ios') {
+    const apnsEnv = process.env.NODE_ENV === 'production' ? 'APNS' : 'APNS_SANDBOX';
+    pushMessage[apnsEnv] = { aps: { alert: message, payload } };
+  }
 
-  const getPushMessage = ({ platform, message, payload }) => {
-    const pushMessage = {};
+  // have to stringify the inner objects and then entire payload
+  _.forIn(pushMessage, (value, key) => {
+    pushMessage[key] = JSON.stringify(pushMessage[key]);
+  });
+  return JSON.stringify(pushMessage);
+}
 
-    if (platform === 'android') {
-      pushMessage.GCM = { data: { message, title, payload } };
-    } else if (platform === 'ios') {
-      const apnsEnv = process.env.NODE_ENV === 'production' ? 'APNS' : 'APNS_SANDBOX';
-      pushMessage[apnsEnv] = { aps: { alert: message, payload } };
-    }
+function getPlatformApplicationArn(platform) {
+  return platform === 'android' ? gsmAppArn : apnsAppArn;
+}
 
-    // have to stringify the inner objects and then entire payload
-    _.forIn(pushMessage, (value, key) => {
-      pushMessage[key] = JSON.stringify(pushMessage[key]);
-    });
-    return JSON.stringify(pushMessage);
-  };
+function getLogGroup(platformApplicationArn) {
+  return platformApplicationArn.replace('arn:aws:sns:', 'sns/').replace(/:/g, '/');
+}
 
-  const getPlatformApplicationArn = (platform) => {
-    return platform === 'android' ? gsmAppArn : apnsAppArn;
-  };
-  
-  const getLogGroup = (platformApplicationArn) => {
-    return platformApplicationArn.replace('arn:aws:sns:', 'sns/').replace(/:/g, '/');
-  };
-
-  return { getPushMessage, getPlatformApplicationArn, getLogGroup };
-};
+module.exports = { getPushMessage, getPlatformApplicationArn, getLogGroup };

@@ -1,6 +1,4 @@
-const docs = require('express-mongoose-docs');
 const path = require('path');
-const mongoose = require('mongoose');
 const compress = require('compression');
 const cors = require('cors');
 const feathers = require('feathers');
@@ -12,8 +10,6 @@ const middleware = require('./middleware');
 const services = require('./services');
 
 const app = feathers();
-
-docs(app, mongoose);
 
 app.configure(configuration(path.join(__dirname, '..')));
 
