@@ -1,6 +1,6 @@
 require('./test-env');
 
-const awsUtils = require('../src/helpers/aws-utils')(app);
+const awsUtils = require('../src/helpers/aws-utils');
 
 describe('AWS utils', () => {
 

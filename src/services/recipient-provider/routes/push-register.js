@@ -1,6 +1,6 @@
 const RecipientProvider = require('../model');
 
-module.exports = () => async(data) => {
+module.exports = async(data) => {
   const { platform, deviceId, address, recipientId } = data;
 
   const newRecipientProvider = {

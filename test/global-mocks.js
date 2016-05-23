@@ -1,9 +1,12 @@
-const requireSubvert = require('require-subvert')(__dirname);
 const awsStub = require('./mocks/aws.stub');
-
-requireSubvert.subvert('../src/helpers/pubsub', require('./mocks/pubsub.mock.js'));
-requireSubvert.subvert('../src/helpers/email-send', require('./mocks/email.mock'));
-
 awsStub.register();
+
+const sinon = require('sinon');
+const pubsub = require('../src/helpers/pubsub');
+const pubsubMocks = require('./mocks/pubsub.mock');
+
+sinon.stub(pubsub, 'pub', pubsubMocks.pub);
+sinon.stub(pubsub, 'sub', pubsubMocks.sub);
+sinon.stub(require('../src/helpers/email-send'), 'send', require('./mocks/email.mock').send);
 
 module.exports = { awsStub };

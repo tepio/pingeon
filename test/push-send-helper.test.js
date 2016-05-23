@@ -2,9 +2,9 @@ require('./test-env');
 
 const { createEndpointStub, publishStub } = mocks.awsStub.getStubs();
 
-const pushProvider = require('../src/helpers/push-send')(app);
-const pushReceiveStatus = require('../src/helpers/push-receive-status')(app);
-const { queueClient, PUSH_SENT_FAIL } = require('../src/helpers/queue')(app);
+const pushProvider = require('../src/helpers/push-send');
+const pushReceiveStatus = require('../src/helpers/push-receive-status');
+const { queueClient, PUSH_SENT_FAIL } = require('../src/helpers/queue');
 const platform = 'android';
 const token = String(new Date());
 const message = 'Hello!';

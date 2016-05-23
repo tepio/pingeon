@@ -1,7 +1,5 @@
-module.exports = (app) => {
-  const pubsub = require('../../../helpers/pubsub')(app);
+const pubsub = require('../../../helpers/pubsub');
 
-  return ({ channel, message }) => {
-    return pubsub.pub(channel, message);
-  };
+module.exports = ({ channel, message }) => {
+  return pubsub.pub(channel, message);
 };
