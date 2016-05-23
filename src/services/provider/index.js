@@ -9,28 +9,28 @@ module.exports = function () {
   app.service('/provider/pubsub/channel', {
     create(data) {
       const { channel, message } = data;
-      return pubSubNotifyChannel(app)({ channel, message });
+      return pubSubNotifyChannel({ channel, message });
     }
   });
 
   app.service('/provider/push/recipient', {
     create(data) {
       const { message, payload, recipientId } = data;
-      return pushNotify(app)({ message, payload, recipientId });
+      return pushNotify({ message, payload, recipientId });
     }
   });
 
   app.service('/provider/email/address', {
     create(data) {
       const { template, vars, address } = data;
-      return emailNotifyAddress(app)({ address, template, vars });
+      return emailNotifyAddress({ address, template, vars });
     }
   });
 
   app.service('/provider/email/recipient', {
     create(data) {
       const { template, vars, recipientId } = data;
-      return emailNotifyRecipient(app)({ recipientId, template, vars });
+      return emailNotifyRecipient({ recipientId, template, vars });
     }
   });
 

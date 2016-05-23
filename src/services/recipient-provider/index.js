@@ -15,7 +15,7 @@ module.exports = function () {
       ]
     });
 
-  app.service('/recipients/:recipientId/providers/push/register', { create: pushRegister(app) })
+  app.service('/recipients/:recipientId/providers/push/register', { create: pushRegister })
     .before({
       all: nestedService({ fk: 'recipientId' })
     });

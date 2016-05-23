@@ -1,48 +1,48 @@
 const { promisifyAll } = require('bluebird');
+
+const config = require('config');
+const { key, secret, region } = config.get('push');
+
+const awsUtils = require('../helpers/aws-utils');
+const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../helpers/queue');
+
 const AWS = require('aws-sdk');
+AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
+const sns = promisifyAll(new AWS.SNS());
 
-module.exports = function (app) {
+async function awsSend({ platform, token, message, payload }) {
 
-  const { key, secret, region } = app.get('push');
-  const awsUtils = require('../helpers/aws-utils')(app);
+  const platformApplicationArn = awsUtils.getPlatformApplicationArn(platform);
+  const pushMessage = awsUtils.getPushMessage({ platform, message, payload });
 
-  AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
-  const sns = promisifyAll(new AWS.SNS());
-  const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../helpers/queue')(app);
+  const { EndpointArn } = await sns.createPlatformEndpointAsync({
+    PlatformApplicationArn: platformApplicationArn,
+    Token: token, Attributes: { Enabled: 'true' }
+  });
 
-  const awsSend = async({ platform, token, message, payload }) => {
-    const platformApplicationArn = awsUtils.getPlatformApplicationArn(platform);
-    const pushMessage = awsUtils.getPushMessage({ platform, message, payload });
+  const { MessageId } = await sns.publishAsync({
+    Message: pushMessage, MessageStructure: 'json',
+    TargetArn: EndpointArn
+  });
 
-    const { EndpointArn } = await sns.createPlatformEndpointAsync({
-      PlatformApplicationArn: platformApplicationArn,
-      Token: token, Attributes: { Enabled: 'true' }
-    });
-
-    const { MessageId } = await sns.publishAsync({
-      Message: pushMessage, MessageStructure: 'json',
-      TargetArn: EndpointArn
-    });
-
-    return {
-      sendDate: new Date(),
-      platformApplicationArn,
-      providerMessageId: MessageId,
-      platform, token, message, payload
-    };
+  return {
+    sendDate: new Date(),
+    platformApplicationArn,
+    providerMessageId: MessageId,
+    platform, token, message, payload
   };
+}
 
-  const send = async(opts) => {
-    try {
-      const result = await awsSend(opts);
-      
-      queueClient(PUSH_SENT).publish(result);
-      return result;
-    } catch (err) {
-      queueClient(PUSH_SENT_FAIL).publish(err);
-      throw err;
-    }
-  };
+async function send(opts) {
+  try {
+    const result = await awsSend(opts);
 
-  return { send };
-};
+    queueClient(PUSH_SENT).publish(result);
+    return result;
+  } catch (err) {
+    queueClient(PUSH_SENT_FAIL).publish(err);
+    throw err;
+  }
+}
+
+module.exports = { send };
