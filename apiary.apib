@@ -22,6 +22,24 @@ Notification Microservice.
             "message": {"text": "Hello!"},
             "statusCode": 200
         }
+        
+## Send a pub/sub message to a recipient [/provider/pubsub/recipient]
+### /provider/pubsub/recipient [POST]
+
++ Request (application/json)
+
+        {
+            "recipientId": "1",
+            "message": {"text": "Hello!"}
+        }
+
++ Response 201
+
+        [{
+            "channel": "stream",
+            "message": {"text": "Hello!"},
+            "statusCode": 200
+        }]
 
 ## Send a message to an email address [/provider/email/address]
 ### /provider/email/address [POST]

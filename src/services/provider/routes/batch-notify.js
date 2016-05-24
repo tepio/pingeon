@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const statusError = require('http-errors');
 
-const pushNotify = require('./provider-push-notify');
-const pubsubNotify = require('./provider-pubsub-notify-channel');
+const pushNotify = require('./push-notify-recipient');
+const pubsubNotify = require('./pubsub-notify-channel');
 const emailNotifyAddress = require('./email-notify-address');
 const emailNotifyRecipient = require('./email-notify-recipient');
 
