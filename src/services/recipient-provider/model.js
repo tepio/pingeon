@@ -8,7 +8,8 @@ const schema = new Schema({
   },
   providerType: {
     type: String,
-    required: true
+    required: true,
+    enum: ['push', 'pubsub', 'email']
   },
   address: {
     type: String,

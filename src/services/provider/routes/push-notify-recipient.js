@@ -9,7 +9,7 @@ module.exports = async({ message, payload, recipientId }) => {
   async function createNotifications({ recipientId, message, payload }) {
     return await Promise.all(
       _(await RecipientProvider.find({ recipientId, providerType: 'push' }))
-        .uniq('token')
+        .uniq('address')
         .map(({ recipientId, address, platform, deviceId }) => {
           return Notification.create({ recipientId, address, platform, deviceId, message, payload });
         })
