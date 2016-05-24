@@ -6,4 +6,4 @@ HOST: http://polls.apiblueprint.org/
 + Request (application/json)
     {"message": "some", "recipients": []}
 + Response 400
-    {}
+    {"error": {"message": "data.recipients should NOT have less than 1 items"}}
