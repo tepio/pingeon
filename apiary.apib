@@ -104,6 +104,27 @@ Notification Microservice.
             "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
         }]
 
+## Send a push notification to specific device [/provider/push/token]
+### /provider/push/token [POST]
+
++ Request (application/json)
+
+        {
+            "token": "1",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 201
+
+        {
+            "message": "Hello",
+            "providerMessageId": "2",
+            "payload": {},
+            "sendDate": "2016-05-20T17:19:15.602Z",
+            "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
+        }
+
 ## Send a batch of notifications [/provider/batch]
 ### /provider/batch [POST]
 

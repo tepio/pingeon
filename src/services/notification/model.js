@@ -2,10 +2,7 @@ import renameId from 'mongoose-rename-id';
 import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
-  recipientId: {
-    type: String,
-    required: true
-  },
+  recipientId: String,
   address: {
     type: String,
     required: true
