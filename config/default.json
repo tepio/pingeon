@@ -20,7 +20,7 @@
     "gsmAppArn": "arn:aws:sns:us-east-1:093525834944:app/GCM/outfit-development",
     "apnsAppArn": "arn:aws:sns:us-east-1:093525834944:app/APNS_SANDBOX/outfit-development"
   },
-  "queue": {
+  "amqp": {
     "url": "amqp://localhost"
   }
 }
