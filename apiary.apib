@@ -125,45 +125,31 @@ Notification Microservice.
             "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
         }
 
-## Send a batch of notifications [/provider/batch]
-### /provider/batch [POST]
+## Send a batch of notifications [/notification/batch]
+### /notification/batch [POST]
 
 + Request (application/json)
 
         {
-          "message": "common message",
-          "recipients": [
-            {
-              "provider": "email",
-              "data": {
-                "address": "test@tep.io",
-                "template": "some",
-                "vars": {}
-              }
+          "recipients": ["1", "2"],
+          "providers": {
+            "email": {
+              "template": "new-comment-on-inspection",
+              "vars": { "inspectionId": 1234567 },
+              "addresses": ["s@tep.io", "p@tep.io"]
             },
-            {
-              "provider": "email",
-              "data": {
-                "recipientId": "1",
-                "template": "some",
-                "vars": {}
-              }
+            "push": {
+              "message": "New comment on inspection #1234567",
+              "payload": {
+                "link": "inspection://inspection/123567/#comment-1234567"
+              },
+              "tokens": ["1", "2"]
             },
-            {
-              "provider": "fanout",
-              "data": {
-                "channel": "stream",
-                "message": "some"
-              }
-            },
-            {
-              "provider": "push",
-              "data": {
-                "receiverId": "1",
-                "payload": {}
-              }
+            "pubsub": {
+              "message": "New comment on inspection #1234567",
+              "channels": ["some"]
             }
-          ]
+          }
         }
 
 + Response 201
