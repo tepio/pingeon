@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const config = require('config');
+const config = require('./config');
 const { title, gsmAppArn, apnsAppArn } = config.get('push');
 
 function getPushMessage({ platform, message, payload }) {

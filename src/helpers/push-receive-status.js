@@ -7,7 +7,7 @@ const _ = require('lodash');
 const RECEIVE_STATUS_INTERVAL = 100;
 const RECEIVE_STATUS_TIMES = 3;
 
-const config = require('config');
+const config = require('./config');
 const { key, secret, region } = config.get('push');
 
 AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
