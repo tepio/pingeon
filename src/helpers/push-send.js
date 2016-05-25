@@ -1,6 +1,6 @@
 const { promisifyAll } = require('bluebird');
 
-const config = require('config');
+const config = require('./config');
 const { key, secret, region } = config.get('push');
 
 const awsUtils = require('../helpers/aws-utils');

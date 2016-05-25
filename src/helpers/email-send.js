@@ -1,6 +1,6 @@
 const mandrill = require('mandrill-api/mandrill');
 const toMandrillVars = require('../helpers/to-mandrill-vars');
-const config = require('config');
+const config = require('./config');
 const emailConfig = config.get('email');
 const mandrillClient = new mandrill.Mandrill(emailConfig.key);
 
