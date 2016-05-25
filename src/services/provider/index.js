@@ -4,7 +4,7 @@ const pushNotifyRecipient = require('./routes/push-notify-recipient');
 const pushNotifyToken = require('./routes/push-notify-token');
 const emailNotifyAddress = require('./routes/email-notify-address');
 const emailNotifyRecipient = require('./routes/email-notify-recipient');
-const batchNotify = require('./routes/batch-notify');
+const batchNotification = require('./routes/batch-notification');
 
 const validate = require('../../hooks/validate');
 const batchDataValidation = require('./validations/batch-notify-data');
@@ -55,7 +55,7 @@ module.exports = function () {
   });
 
   app
-    .service('/provider/batch', { create: batchNotify })
+    .service('/notification/batch', { create: batchNotification })
     .before({
       create: validate({ validation: batchDataValidation })
     });
