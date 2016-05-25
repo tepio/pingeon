@@ -23,6 +23,7 @@ This project uses [Feathers](http://feathersjs.com). An open source web  framewo
 
 ```
 DATABASE_URL
+AMQP_URL
 PUBSUB_ID
 PUBSUB_KEY
 EMAIL_KEY
