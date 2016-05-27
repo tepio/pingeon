@@ -42,15 +42,15 @@ module.exports = function () {
 
   app.service('/provider/email/address', {
     create(data) {
-      const { template, vars, address } = data;
-      return emailNotifyAddress({ address, template, vars });
+      const { template, vars, address, to, cc, bcc, message, subject } = data;
+      return emailNotifyAddress({ template, vars, address, to, cc, bcc, message, subject });
     }
   });
 
   app.service('/provider/email/recipient', {
     create(data) {
-      const { template, vars, recipientId } = data;
-      return emailNotifyRecipient({ recipientId, template, vars });
+      const { template, vars, recipientId, to, cc, bcc, message, subject } = data;
+      return emailNotifyRecipient({ template, vars, recipientId, to, cc, bcc, message, subject });
     }
   });
 

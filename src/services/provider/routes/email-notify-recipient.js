@@ -1,5 +1,5 @@
 const RecipientProvider = require('../../recipient-provider/model');
-const emailHelper = require('../../../helpers/email-send');
+const emailHelper = require('../../../helpers/email');
 const Promise = require('bluebird');
 const _ = require('lodash');
 
@@ -8,7 +8,7 @@ module.exports = async({ recipientId, template, vars }) => {
   res = _.map(res, 'address');
   res = _.uniq(res);
   res = await Promise.map(res, address => {
-    return emailHelper.send(address, { template, vars });
+    return emailHelper.send({ email: address, template, vars });
   });
   res = _.flatten(res);
 
