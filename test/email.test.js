@@ -1,6 +1,6 @@
 require('./test-env');
 
-const emailProvider = require('../src/helpers/email-send');
+const emailProvider = require('../src/helpers/email');
 const email = 'kozzztya@gmail.com';
 const template = 'thank-you-registering';
 const vars = { completeregistration: 'some' };
@@ -10,7 +10,7 @@ describe('Email send', function () {
 
   it('should be sent', done => {
     return emailProvider
-      .send(email, { template, vars })
+      .send({ email, template, vars })
       .then(res => {
         assert.ok(res);
         done();
