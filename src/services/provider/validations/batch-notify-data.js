@@ -10,7 +10,6 @@ const schema = {
       properties: {
         email: {
           type: 'object',
-          required: ['template'],
           properties: {
             template: { type: 'string' },
             vars: { type: 'object' },
