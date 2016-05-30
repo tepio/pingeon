@@ -3,6 +3,7 @@ const recipientProfile = require('./model');
 const nestedService = require('../../hooks/nested-service');
 const pushRegister = require('./routes/push-register');
 const pushUnregister = require('./routes/push-unregister');
+const recipientAutoCreate = require('./hooks/recipient-auto-create');
 
 module.exports = function () {
   const app = this;
@@ -12,12 +13,14 @@ module.exports = function () {
       all: [
         nestedService({ fk: 'recipientId' }),
         nestedService({ fk: 'providerType' })
-      ]
+      ],
+      create: recipientAutoCreate()
     });
 
   app.service('/recipients/:recipientId/profiles/push/register', { create: pushRegister })
     .before({
-      all: nestedService({ fk: 'recipientId' })
+      all: nestedService({ fk: 'recipientId' }),
+      create: recipientAutoCreate()
     });
 
   app
