@@ -1,5 +1,5 @@
 const pubsub = require('../../../helpers/pubsub');
-const RecipientProvider = require('../../recipient-provider/model');
+const RecipientProvider = require('../../recipient-profile/model');
 const Promise = require('bluebird');
 const _ = require('lodash');
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const recipient = require('./recipient');
 const provider = require('./provider');
-const recipientProvider = require('./recipient-provider');
+const recipientProfile = require('./recipient-profile');
 
 module.exports = function () {
   const app = this;
@@ -12,5 +12,5 @@ module.exports = function () {
 
   app.configure(recipient);
   app.configure(provider);
-  app.configure(recipientProvider);
+  app.configure(recipientProfile);
 };

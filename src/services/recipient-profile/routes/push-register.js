@@ -1,14 +1,14 @@
 const RecipientProvider = require('../model');
 
 module.exports = async(data) => {
-  const { platform, deviceId, address, recipientId } = data;
+  const { platform, deviceId, token, recipientId } = data;
 
   const newRecipientProvider = {
-    recipientId, deviceId, address, platform,
+    recipientId, deviceId, token, platform,
     providerType: 'push', registeredDate: new Date()
   };
 
-  const recipientProviderWithSameToken = await RecipientProvider.findOne({ address });
+  const recipientProviderWithSameToken = await RecipientProvider.findOne({ token });
 
   if (recipientProviderWithSameToken && recipientProviderWithSameToken.recipientId !== recipientId) {
     return RecipientProvider.update({ _id: recipientProviderWithSameToken._id }, newRecipientProvider);

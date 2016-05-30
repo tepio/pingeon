@@ -1,4 +1,4 @@
-const RecipientProvider = require('../../recipient-provider/model');
+const RecipientProvider = require('../../recipient-profile/model');
 const Notification = require('../../notification/model');
 const _ = require('lodash');
 const Promise = require('bluebird');
@@ -9,9 +9,9 @@ module.exports = async({ message, payload, recipientId }) => {
   async function createNotifications({ recipientId, message, payload }) {
     return await Promise.all(
       _(await RecipientProvider.find({ recipientId, providerType: 'push' }))
-        .uniq('address')
-        .map(({ recipientId, address, platform, deviceId }) => {
-          return Notification.create({ recipientId, address, platform, deviceId, message, payload });
+        .uniq('token')
+        .map(({ recipientId, token, platform, deviceId }) => {
+          return Notification.create({ recipientId, token, platform, deviceId, message, payload });
         })
         .value()
     );

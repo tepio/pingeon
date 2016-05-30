@@ -11,7 +11,7 @@ describe('Recipient', () => {
     });
 
     it('creates recipient provider', () => {
-      return request.post(`/recipients/${ctx.recipient.id}/providers/push`)
+      return request.post(`/recipients/${ctx.recipient.id}/profiles/push`)
         .send({
           deviceId: 'deviceId',
           address: 'deviceToken',
@@ -26,15 +26,15 @@ describe('Recipient', () => {
     });
 
     it('get one recipient provider', () => {
-      return request.get(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
+      return request.get(`/recipients/${ctx.recipient.id}/profiles/push/${ctx.recipientProvider.id}`)
         .expect(200)
         .expect(({ body }) => {
           assert.equal(body.recipientId, ctx.recipient.id);
         });
     });
 
-    it('get all recipient providers', () => {
-      return request.get(`/recipients/${ctx.recipient.id}/providers/push`)
+    it('get all recipient profiles', () => {
+      return request.get(`/recipients/${ctx.recipient.id}/profiles/push`)
         .expect(200)
         .expect(({ body }) => {
           assert.equal(body[0].recipientId, ctx.recipient.id);
@@ -42,7 +42,7 @@ describe('Recipient', () => {
     });
 
     it('update recipient provider', () => {
-      return request.put(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
+      return request.put(`/recipients/${ctx.recipient.id}/profiles/push/${ctx.recipientProvider.id}`)
         .send({ ...ctx.recipientProvider, address: 'new' })
         .expect(200)
         .expect(({ body }) => {
@@ -52,7 +52,7 @@ describe('Recipient', () => {
     });
 
     it('patch recipient provider', () => {
-      return request.patch(`/recipients/${ctx.recipient.id}/providers/push/${ctx.recipientProvider.id}`)
+      return request.patch(`/recipients/${ctx.recipient.id}/profiles/push/${ctx.recipientProvider.id}`)
         .send({ address: 'new' })
         .expect(200)
         .expect(({ body }) => {
@@ -64,7 +64,7 @@ describe('Recipient', () => {
     describe('remove recipient provider', () => {
 
       it('should response with removed', () => {
-        return request.delete(`/recipients/${ctx.recipient.id}/providers/push`)
+        return request.delete(`/recipients/${ctx.recipient.id}/profiles/push`)
           .expect(200)
           .expect(({ body }) => {
             assert.equal(body[0].recipientId, ctx.recipient.id);
@@ -72,7 +72,7 @@ describe('Recipient', () => {
       });
 
       it('should give nothing', () => {
-        return request.get(`/recipients/${ctx.recipient.id}/providers/push`)
+        return request.get(`/recipients/${ctx.recipient.id}/profiles/push`)
           .expect(200)
           .expect(({ body }) => {
             assert.equal(body.length, 0);

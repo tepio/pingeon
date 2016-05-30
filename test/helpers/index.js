@@ -1,8 +1,12 @@
-const RecipientProvider = require('../../src/services/recipient-provider/model');
+const RecipientProvider = require('../../src/services/recipient-profile/model');
 const Recipient = require('../../src/services/recipient/model');
+const db = require('./db');
 
 function createRandomRecipient(recipient) {
-  return Recipient.create(Object.assign({ firstName: 'John', lastName: 'Testerson' }, recipient));
+  return Recipient.create(Object.assign({
+    firstName: 'John',
+    lastName: 'Testerson'
+  }, recipient));
 }
 
 async function createRecipientProfile({ recipientId, address = 'some', ...other }) {
@@ -13,5 +17,6 @@ async function createRecipientProfile({ recipientId, address = 'some', ...other 
 
 module.exports = {
   createRandomRecipient,
-  createRecipientProfile
+  createRecipientProfile,
+  db
 };
