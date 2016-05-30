@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://outfit-pingeon-staging.herokuapp.com/
 
 # Pingeon
 
@@ -51,7 +51,11 @@ Notification Microservice.
          "template": "thanks-for-register",
          "vars": {
              "name": "Kostyan"
-         }
+         },
+         "to": ["test@test.com"],
+         "cc": ["test@test.com"],
+         "bcc": ["test@test.com"],
+         "subject": "some subject"
     }
 
 + Response 201
@@ -69,10 +73,14 @@ Notification Microservice.
 
     {
          "recipientId": "1",
-         "template": "thanks-for-register",
          "vars": {
              "name": "Kostyan"
-         }
+         },
+         "to": ["test@test.com"],
+         "cc": ["test@test.com"],
+         "bcc": ["test@test.com"],
+         "message": "some message",
+         "subject": "some subject"
     }
 
 + Response 201
