@@ -7,7 +7,7 @@ hookfiles: 'test/api/hooks/*'
 language: nodejs
 sandbox: false
 server: npm run server:mocked
-server-wait: 3
+server-wait: 5
 init: false
 names: false
 only: []
