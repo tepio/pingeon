@@ -44,7 +44,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
-          address: getDeviceToken()
+          token: getDeviceToken()
         })
         .expect(({ body }) => {
           assert.equal(body.recipientId, ctx.personWithTwoDevices.id);
@@ -65,7 +65,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
-          address: ctx.firstDeviceToken
+          token: ctx.firstDeviceToken
         })
         .expect(({ body }) => {
           ctx.firstRegisterRecipientProviderId = body.id;
@@ -82,18 +82,18 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
-          address: ctx.secondDeviceToken
+          token: ctx.secondDeviceToken
         })
         .expect(({ body }) => {
-          assert.equal(body.address, ctx.secondDeviceToken, 'changed token');
+          assert.equal(body.token, ctx.secondDeviceToken, 'changed token');
           assert.equal(body.id, ctx.firstRegisterRecipientProviderId, 'same recipient');
         })
         .expect(201);
     });
 
-    it('should not be old address', () => {
+    it('should not be old token', () => {
       return request.get(`/recipients/${ctx.personWithTwoDevices.id}` +
-          `/profiles/push?address=${ctx.firstDeviceToken}`)
+          `/profiles/push?token=${ctx.firstDeviceToken}`)
         .expect(({ body }) => {
           assert(_.isEmpty(body));
         })
@@ -109,7 +109,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPhoneDeviceId,
-          address: getDeviceToken()
+          token: getDeviceToken()
         })
         .expect(({ body }) => {
           ctx.iPhoneRegister = body;
@@ -121,7 +121,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: iPadDeviceId,
-          address: getDeviceToken()
+          token: getDeviceToken()
         })
         .expect(({ body }) => {
           ctx.iPadRegister = body;
@@ -160,7 +160,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
-          address: tokenForOneInstall
+          token: tokenForOneInstall
         });
     });
 
@@ -169,7 +169,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
-          address: tokenForOneInstall
+          token: tokenForOneInstall
         });
     });
 
@@ -210,7 +210,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
-          address: getDeviceToken()
+          token: getDeviceToken()
         });
     });
 
@@ -219,7 +219,7 @@ describe('Device token registration', () => {
         .send({
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
-          address: getDeviceToken()
+          token: getDeviceToken()
         });
     });
 
@@ -246,7 +246,7 @@ describe('Device token registration', () => {
 
     it('should be different documents', () => {
       assert.notEqual(ctx.resultForFirstPerson[0].id, ctx.resultForSecondPerson[0].id);
-      assert.notEqual(ctx.resultForFirstPerson[0].address, ctx.resultForSecondPerson[0].address);
+      assert.notEqual(ctx.resultForFirstPerson[0].token, ctx.resultForSecondPerson[0].token);
       assert.notEqual(ctx.resultForFirstPerson[0].recipientId, ctx.resultForSecondPerson[0].recipientId);
     });
 
@@ -255,7 +255,7 @@ describe('Device token registration', () => {
   describe('Unregister users with coincided device id', () => {
 
     before(() => {
-      return request.delete(`/recipients/${ctx.firstPerson.id}/profiles/push`)
+      return request.post(`/recipients/${ctx.firstPerson.id}/profiles/push/unregister`)
         .send({ deviceId: coincidedIPhoneDeviceId });
     });
 

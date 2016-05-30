@@ -12,8 +12,7 @@ const schema = new Schema({
     enum: ['push', 'pubsub', 'email']
   },
   address: {
-    type: String,
-    required: true
+    type: String
   },
   platform: {
     type: String,
@@ -23,7 +22,8 @@ const schema = new Schema({
     type: Date,
     default: Date.now
   },
-  deviceId: String
+  deviceId: String,
+  token: String
 });
 schema.plugin(renameId({ newIdName: 'id', mongoose }));
 

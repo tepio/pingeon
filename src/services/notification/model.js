@@ -4,14 +4,14 @@ import mongoose, { Schema } from 'mongoose';
 const schema = new Schema({
   recipientId: String,
   address: {
-    type: String,
-    required: true
+    type: String
   },
   platform: {
     type: String,
     enum: ['android', 'ios']
   },
   deviceId: String,
+  token: String,
   payload: Object,
   message: String,
   providerMessageId: String,

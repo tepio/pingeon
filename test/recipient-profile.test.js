@@ -37,7 +37,6 @@ describe('Recipient', () => {
       return request.get(`/recipients/${ctx.recipient.id}/profiles/push`)
         .expect(200)
         .expect(({ body }) => {
-          console.log(body);
           assert.equal(body[0].recipientId, ctx.recipient.id);
         });
     });
