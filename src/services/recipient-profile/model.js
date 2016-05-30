@@ -27,4 +27,4 @@ const schema = new Schema({
 });
 schema.plugin(renameId({ newIdName: 'id', mongoose }));
 
-module.exports = mongoose.model('recipientProviders', schema);
+module.exports = mongoose.model('recipientProfile', schema);

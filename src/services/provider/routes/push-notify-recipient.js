@@ -1,4 +1,4 @@
-const RecipientProvider = require('../../recipient-provider/model');
+const RecipientProvider = require('../../recipient-profile/model');
 const Notification = require('../../notification/model');
 const _ = require('lodash');
 const Promise = require('bluebird');

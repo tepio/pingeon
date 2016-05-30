@@ -157,3 +157,43 @@ Notification Microservice.
         {
             "status": "queued"
         }
+
+## Recipients [/recipients]
+
+### Create new recipient instance [POST]
+
++ Request (application/json)
+    {
+        "id": "57472118fc2805aa3556770c",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }
+    
++ Response 201
+    {
+        "id": "57472118fc2805aa3556770c",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }
+
+### Find all recipients [GET]
+    
++ Response 200
+    [{
+        "id": "57472118fc2805aa3556770c``",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }]
+    
+## Recipients [/recipients/{id}]
+
+### Get recipient instance [GET]
+
++ Parameters
+    + id: 57472118fc2805aa3556770c (string) - id of the recipient
+    
++ Response 200
+    {
+        "id": "57472118fc2805aa3556770c"
+    }
+    

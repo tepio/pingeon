@@ -1,8 +1,7 @@
 module.exports = () => (err, req, res, next) => {
-  if (!err) return next();
+  if (!err) next();
+  if (!err.toJSON) next(err);
 
-  const { status, message } = err;
-  return res.status(status).send({
-    error: { status, message }
-  });
+  const error = err.toJSON();
+  return res.status(error.code).send({ error });
 };
