@@ -4,6 +4,7 @@ const pushNotifyRecipient = require('./push-notify-recipient');
 const pushNotifyToken = require('./push-notify-token');
 const pubsubNotifyChannel = require('./pubsub-notify-channel');
 const pubsubNotifyRecipient = require('./pubsub-notify-recipient');
+const pubsubNotifyRecipientPrefix = require('./pubsub-notify-recipient-prefix');
 const emailNotifyAddress = require('./email-notify-address');
 const emailNotifyRecipient = require('./email-notify-recipient');
 
@@ -23,8 +24,11 @@ module.exports = async(batch) => {
 
   _.forEach(batch.recipients, recipientId => {
     if (push) pushNotifyRecipient({ recipientId, ...push });
-    if (pubsub) pubsubNotifyRecipient({ recipientId, ...pubsub });
     if (email) emailNotifyRecipient({ recipientId, ...email });
+    if (pubsub) {
+      if (pubsub.prefix) pubsubNotifyRecipientPrefix({ recipientId, ...pubsub });
+      else pubsubNotifyRecipient({ recipientId, ...pubsub });
+    }
   });
 
   return { status: 'queued' };

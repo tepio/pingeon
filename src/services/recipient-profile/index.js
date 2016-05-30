@@ -3,7 +3,7 @@ const recipientProfile = require('./model');
 const nestedService = require('../../hooks/nested-service');
 const pushRegister = require('./routes/push-register');
 const pushUnregister = require('./routes/push-unregister');
-const recipientAutoCreate = require('./hooks/recipient-auto-create');
+const recipientAutoCreate = require('../recipient/hooks/recipient-auto-create');
 
 module.exports = function () {
   const app = this;
