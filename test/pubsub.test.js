@@ -7,7 +7,7 @@ const message = { field: 'some' };
 describe('Pubsub', () => {
 
   it('should publish and subscribe', done => {
-    pubsub.sub(channel).then(res => {
+    pubsub.sub(channel, res => {
       assert.deepEqual(res, message);
       done();
     });

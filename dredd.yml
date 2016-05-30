@@ -13,7 +13,7 @@ names: false
 only: []
 output: []
 header: []
-sorted: true
+sorted: false
 user: null
 inline-errors: false
 details: false

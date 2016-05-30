@@ -6,11 +6,8 @@ async function pub(channel, message) {
   return { message, channel, statusCode: 200 };
 }
 
-function sub(channel) {
-  return new Promise(resolve =>
-    emitter.on(channel, message => {
-      resolve(message);
-    }));
+function sub(channel, cb) {
+  emitter.on(channel, cb);
 }
 
 module.exports = { pub, sub };

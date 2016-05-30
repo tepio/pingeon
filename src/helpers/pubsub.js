@@ -14,11 +14,8 @@ function pub(channel, message) {
     }));
 }
 
-function sub(channel) {
-  return new Promise(resolve =>
-    faye.subscribe('/' + channel, message => {
-      resolve(message);
-    }));
+function sub(channel, cb) {
+  faye.subscribe('/' + channel, cb);
 }
 
 module.exports = { pub, sub };
