@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /usr/src/app
+cd /var/www/html
 npm start
