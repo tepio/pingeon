@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const serverStatus = require('../helpers/server-status');
 
 const recipient = require('./recipient');
 const provider = require('./provider');
@@ -13,4 +14,6 @@ module.exports = function () {
   app.configure(recipient);
   app.configure(provider);
   app.configure(recipientProfile);
+
+  app.service('/', { find: serverStatus });
 };

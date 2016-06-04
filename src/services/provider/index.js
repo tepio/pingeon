@@ -1,5 +1,6 @@
 const pubSubNotifyChannel = require('./routes/pubsub-notify-channel');
 const pubSubNotifyRecipient = require('./routes/pubsub-notify-recipient');
+const pubSubNotifyRecipientPrefix = require('./routes/pubsub-notify-recipient-prefix');
 const pushNotifyRecipient = require('./routes/push-notify-recipient');
 const pushNotifyToken = require('./routes/push-notify-token');
 const emailNotifyAddress = require('./routes/email-notify-address');
@@ -25,6 +26,14 @@ module.exports = function () {
       return pubSubNotifyRecipient({ message, recipientId });
     }
   });
+
+  app
+    .service('/provider/pubsub/recipient/prefix', {
+      create(data) {
+        const { message, recipientId, prefix } = data;
+        return pubSubNotifyRecipientPrefix({ message, recipientId, prefix });
+      }
+    });
 
   app.service('/provider/push/recipient', {
     create(data) {

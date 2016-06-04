@@ -35,6 +35,7 @@ const schema = {
             required: ['message'],
             properties: {
               message: { type: 'string' },
+              prefix: { type: 'string' },
               channels: {
                 type: 'array',
                 items: { type: 'string' }

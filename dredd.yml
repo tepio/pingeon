@@ -7,13 +7,13 @@ hookfiles: 'test/api/hooks/*'
 language: nodejs
 sandbox: false
 server: npm run server:mocked
-server-wait: 3
+server-wait: 5
 init: false
 names: false
 only: []
 output: []
 header: []
-sorted: true
+sorted: false
 user: null
 inline-errors: false
 details: false
