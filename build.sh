@@ -18,7 +18,7 @@ git clone $GIT ./_build/.cache/
 cd ./_build/.cache/
 git checkout $1
 npm install
-docker build --build-arg version=$1 -t $ECR_PATH:$1 ../
+docker build -t $ECR_PATH:$1 ../
 docker push $ECR_PATH:$1
 
 IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
