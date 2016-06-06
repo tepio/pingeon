@@ -22,12 +22,24 @@ This project uses [Feathers](http://feathersjs.com). An open source web  framewo
 ## Environment Variables
 
 ```
-DATABASE_URL
-AMQP_URL
-PUBSUB_ID
-PUBSUB_KEY
-EMAIL_KEY
-EMAIL_FROM
+DEBUG - All in app logs goes to 'app*'.
+PORT - What port server is listening.
+
+AMQP_URL - RabbitMQ url.
+DATABASE_URL - db connection url.
+
+PUBSUB_ID - pub/sub provider id.
+PUBSUB_KEY - pub/sub provider secret key.
+
+EMAIL_KEY - email provider secret key. 
+EMAIL_FROM - for example noreply@tep.io
+
+PUSH_KEY - AWS key.
+PUSH_SECRET - AWS secret.
+PUSH_REGION - AWS SNS region.
+PUSH_TITLE - Title for push notifications.
+GSM_APP_ARN - Android ARN for AWS SNS.
+APNS_APP_ARN - Apple iOS ARN for AWS SNS.
 ```
 
 ## API
