@@ -1,4 +1,3 @@
-const path = require('path');
 const compress = require('compression');
 const cors = require('cors');
 const feathers = require('feathers');
