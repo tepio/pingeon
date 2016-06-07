@@ -4,11 +4,12 @@ const serverStatus = require('../helpers/server-status');
 const recipient = require('./recipient');
 const provider = require('./provider');
 const recipientProfile = require('./recipient-profile');
+const config = require('../helpers/config');
 
 module.exports = function () {
   const app = this;
 
-  mongoose.connect(app.get('db').url);
+  mongoose.connect(config.get('db').url);
   mongoose.Promise = global.Promise;
 
   app.configure(recipient);
