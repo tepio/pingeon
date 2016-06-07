@@ -23,8 +23,9 @@
     "start": "node dist/server.bundle.js",
     "server:mocked": "node dist/mocked.bundle.js",
     "mocha": "NODE_ENV=test mocha test/*.test.js",
-    "dredd": "webpack && dredd",
+    "dredd": "dredd",
     "build": "webpack",
+    "watch": "webpack -w",
     "postinstall": "webpack && npm prune"
   },
   "dependencies": {
