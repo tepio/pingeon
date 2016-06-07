@@ -1,8 +1,9 @@
 const app = require('./app');
 const debug = require('debug')('app');
-const port = app.get('port');
+const config = require('./helpers/config');
+const port = config.get('port');
 const server = app.listen(port);
 
 server.on('listening', () =>
-  debug(`Feathers application started on ${app.get('host')}:${port}`)
+  debug(`Feathers application started on ${config.get('host')}:${port}`)
 );
