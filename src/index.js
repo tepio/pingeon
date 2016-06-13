@@ -5,5 +5,5 @@ const port = config.get('port');
 const server = app.listen(port);
 
 server.on('listening', () =>
-  debug(`Feathers application started on ${config.get('host')}:${port}`)
+  debug(`Pingeon started on ${config.get('host')}:${port}`)
 );
