@@ -1,3 +1,5 @@
+const debug = require('debug')('app:email');
+
 const mandrill = require('mandrill-api/mandrill');
 const { getVars, getTo } = require('./mandrill-utils');
 const config = require('./config');
@@ -27,7 +29,13 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => new P
   return mandrillClient.messages.send({
     message: { ...mandrillMessage, text: message },
     async: false
-  }, resolve, reject);
+  }, res => {
+    debug('sent', res);
+    resolve(res);
+  }, err => {
+    debug('error', err);
+    reject(err);
+  });
 });
 
 module.exports = { send };

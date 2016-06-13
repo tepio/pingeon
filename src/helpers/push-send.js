@@ -1,10 +1,11 @@
+const debug = require('debug')('app:push');
+
 const { promisifyAll } = require('bluebird');
 
 const config = require('./config');
 const { key, secret, region } = config.get('push');
 
 const awsUtils = require('../helpers/aws-utils');
-const { queueClient, PUSH_SENT, PUSH_SENT_FAIL } = require('../helpers/queue');
 
 const AWS = require('aws-sdk');
 AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
@@ -36,11 +37,10 @@ async function awsSend({ platform, token, message, payload }) {
 async function send(opts) {
   try {
     const result = await awsSend(opts);
+    debug('sent', result);
 
-    queueClient(PUSH_SENT).publish(result);
     return result;
   } catch (err) {
-    queueClient(PUSH_SENT_FAIL).publish(err);
     throw err;
   }
 }
