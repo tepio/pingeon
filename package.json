@@ -20,7 +20,7 @@
   "scripts": {
     "test": "npm run lint && npm run dredd && npm run mocha",
     "lint": "eslint --ignore-path .gitignore ./",
-    "start": "node dist/server.bundle.js",
+    "start": "supervisor -w dist dist/server.bundle.js",
     "server:mocked": "node dist/mocked.bundle.js",
     "mocha": "NODE_ENV=test mocha test/*.test.js",
     "dredd": "dredd",
@@ -60,6 +60,7 @@
     "promdash": "1.1.0",
     "require-subvert": "0.1.0",
     "serve-favicon": "2.3.0",
+    "supervisor": "0.11.0",
     "winston": "2.2.0",
     "worque": "0.9.3"
   },
