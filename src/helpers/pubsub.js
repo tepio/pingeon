@@ -1,3 +1,5 @@
+const debug = require('debug')('app:pubsub');
+
 const Fanout = require('fanoutpub');
 const Faye = require('faye');
 const config = require('./config');
@@ -9,8 +11,9 @@ function pub(channel, message) {
   return new Promise((resolve, reject) =>
     fanout.publish(channel, message, (success, data, context) => {
       if (!success) return reject(context);
-
-      return resolve({ message, channel, ...context });
+      const result = { message, channel, ...context };
+      debug('sent', result);
+      return resolve(result);
     }));
 }
 
