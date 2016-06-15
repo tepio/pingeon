@@ -15,11 +15,12 @@ async function awsSend({ platform, token, message, payload }) {
 
   const platformApplicationArn = awsUtils.getPlatformApplicationArn(platform);
   const pushMessage = awsUtils.getPushMessage({ platform, message, payload });
-
+  
   const { EndpointArn } = await sns.createPlatformEndpointAsync({
-    PlatformApplicationArn: platformApplicationArn,
-    Token: token, Attributes: { Enabled: 'true' }
+    PlatformApplicationArn: platformApplicationArn, Token: token
   });
+
+  await sns.setEndpointAttributesAsync({ Attributes: { Enabled: 'true' }, EndpointArn });
 
   const { MessageId } = await sns.publishAsync({
     Message: pushMessage, MessageStructure: 'json',
