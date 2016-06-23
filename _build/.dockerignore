@@ -1,0 +1,3 @@
+.cache/test
+.cache/src
+.cache/node_modules/babel*
