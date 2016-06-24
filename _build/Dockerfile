@@ -1,4 +1,4 @@
-FROM node:argon
+FROM mhart/alpine-node:4
 
 MAINTAINER Vanya Andreychuk "vanya@tep.io"
 
