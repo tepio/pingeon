@@ -1,13 +1,26 @@
 {
-  "host": "notification-microservice-app.feathersjs.com",
-  "port": 80,
-  "mongodb": "DATABASE_URL",
-  "public": "../public/",
-  "auth": {
-    "idField": "id",
-    "token": {
-      "secret": "FEATHERS_AUTH_SECRET"
-    },
-    "local": {}
+  "host": "0.0.0.0",
+  "port": "PORT",
+  "db": {
+    "url": "DATABASE_URL"
+  },
+  "pubsub": {
+    "id": "PUBSUB_ID",
+    "key": "PUBSUB_KEY"
+  },
+  "email": {
+    "key": "EMAIL_KEY",
+    "from": "EMAIL_FROM"
+  },
+  "push": {
+    "key": "PUSH_KEY",
+    "secret": "PUSH_SECRET",
+    "region": "PUSH_REGION",
+    "title": "PUSH_TITLE",
+    "gsmAppArn": "GSM_APP_ARN",
+    "apnsAppArn": "APNS_APP_ARN"
+  },
+  "amqp": {
+    "url": "AMQP_URL"
   }
 }

@@ -1,0 +1,306 @@
+FORMAT: 1A
+HOST: http://outfit-pingeon-staging.herokuapp.com/
+
+# Pingeon
+
+Notification Microservice.
+
+## Send a pub/sub message to a channel [/provider/pubsub/channel]
+### /provider/pubsub/channel [POST]
+
++ Request (application/json)
+
+        {
+            "channel": "stream",
+            "message": {"text": "Hello!"}
+        }
+
++ Response 201
+
+        {
+            "channel": "stream",
+            "message": {"text": "Hello!"},
+            "statusCode": 200
+        }
+        
+## Send a pub/sub message to a recipient [/provider/pubsub/recipient]
+### /provider/pubsub/recipient [POST]
+
++ Request (application/json)
+
+        {
+            "recipientId": "1",
+            "message": {"text": "Hello!"}
+        }
+
++ Response 201
+
+        [{
+            "channel": "stream",
+            "message": {"text": "Hello!"},
+            "statusCode": 200
+        }]
+
+## Send a message to an email address [/provider/email/address]
+### /provider/email/address [POST]
+
++ Request (application/json)
+
+    {
+         "address": "example@gmail.com",
+         "template": "thanks-for-register",
+         "vars": {
+             "name": "Kostyan"
+         },
+         "to": ["test@test.com"],
+         "cc": ["test@test.com"],
+         "bcc": ["test@test.com"],
+         "subject": "some subject"
+    }
+
++ Response 201
+
+    [{
+        "email":"example@gmail.com",
+        "status":"sent",
+        "_id":"13lf45gw5","reject_reason":null
+    }]
+
+## Send a message to an email address [/provider/email/recipient]
+### /provider/email/recipient [POST]
+
++ Request (application/json)
+
+    {
+         "recipientId": "1",
+         "vars": {
+             "name": "Kostyan"
+         },
+         "to": ["test@test.com"],
+         "cc": ["test@test.com"],
+         "bcc": ["test@test.com"],
+         "message": "some message",
+         "subject": "some subject"
+    }
+
++ Response 201
+
+    [{
+        "email":"example@gmail.com",
+        "status":"sent",
+        "_id":"13lf45gw5","reject_reason":null
+    }]
+
+## Send a push notification to a recipient [/provider/push/recipient]
+### /provider/push/recipient [POST]
+
++ Request (application/json)
+
+        {
+            "recipientId": "1",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 201
+
+        [{
+            "message": "Hello",
+            "providerMessageId": "2",
+            "payload": {},
+            "sendDate": "2016-05-20T17:19:15.602Z",
+            "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
+        }]
+
+## Send a push notification to specific device [/provider/push/token]
+### /provider/push/token [POST]
+
++ Request (application/json)
+
+        {
+            "token": "1",
+            "message": "Hello",
+            "payload": {}
+        }
+
++ Response 201
+
+        {
+            "message": "Hello",
+            "providerMessageId": "2",
+            "payload": {},
+            "sendDate": "2016-05-20T17:19:15.602Z",
+            "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
+        }
+
+## Send a batch of notifications [/notification/batch]
+### /notification/batch [POST]
+
++ Request (application/json)
+
+        {
+          "recipients": ["1", "2"],
+          "providers": {
+            "email": {
+              "template": "new-comment-on-inspection",
+              "vars": { "inspectionId": 1234567 },
+              "addresses": ["s@tep.io", "p@tep.io"]
+            },
+            "push": {
+              "message": "New comment on inspection #1234567",
+              "payload": {
+                "link": "inspection://inspection/123567/#comment-1234567"
+              },
+              "tokens": ["1", "2"]
+            },
+            "pubsub": {
+              "message": "New comment on inspection #1234567",
+              "prefix": "user-"
+            }
+          }
+        }
+
++ Response 201
+
+        {
+            "status": "queued"
+        }
+
+## Recipients [/recipients]
+
+### Create new recipient instance [POST]
+
++ Request (application/json)
+    {
+        "id": "57472118fc2805aa3556770c",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }
+    
++ Response 201
+    {
+        "id": "57472118fc2805aa3556770c",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }
+
+### Find all recipients [GET]
+    
++ Response 200
+    [{
+        "id": "57472118fc2805aa3556770c``",
+        "firstName": "John",
+        "lastName": "Testerson"
+    }]
+    
+## Recipient instance [/recipients/{id}]
+
+### Get recipient instance [GET]
+
++ Parameters
+    + id: 57472118fc2805aa3556770c (string) - id of the recipient
+    
++ Response 200
+    {
+        "id": "57472118fc2805aa3556770c"
+    }
+    
+## Recipient profiles [/recipients/{recipientId}/profiles/{providerType}]
+
+### Create new recipient profile instance [POST]
+
++ Parameters
+    + recipientId: 57472118fc2805aa3556770c (string) - id of the recipient
+    + providerType: email (string) - email/push/pubsub/etc
+
++ Request (application/json)
+    {
+        "id": "57472118fc2805aa3556770d",
+        "address": "test@tep.io"
+    }
+    
++ Response 201
+    {
+        "id": "57472118fc2805aa3556770d",
+        "recipientId": "57472118fc2805aa3556770c",
+        "providerType": "email",
+        "address": "test@tep.io"
+    }
+
+### Find all recipient profiles [GET]
+
++ Parameters
+    + recipientId: 57472118fc2805aa3556770c (string) - id of the recipient
+    + providerType: email (string) - email/push/pubsub/etc
+    
++ Response 200
+    [{
+        "id": "57472118fc2805aa3556770d",
+        "recipientId": "57472118fc2805aa3556770d",
+        "providerType": "email",
+        "address": "test@tep.io"
+    }]
+    
+## Recipient profile instance [/recipients/{recipientId}/profiles/{providerType}/{id}]
+
+### Get recipient instance [GET]
+
++ Parameters
+    + recipientId: 57472118fc2805aa3556770c (string) - id of the recipient
+    + providerType: email (string) - email/push/pubsub/etc
+    + id: 57472118fc2805aa3556770d (string) - id of the recipient profile
+    
++ Response 200
+    {
+        "id": "57472118fc2805aa3556770d",
+        "recipientId": "57472118fc2805aa3556770c",
+        "providerType": "email",
+        "address": "test@tep.io"
+    }
+    
+## Push recipient profile [/recipients/{recipientId}/profiles/push/register]
+
+### Register [POST]
+
++ Parameters
+    + recipientId: 57472118fc2805aa3556770c (string) - id of the recipient
+
++ Request (application/json)
+    {
+        "platform": "ios",
+        "deviceId": "8fc2805aa3556770c8fc2805aa3556770c",
+        "token": "FE66489F304DC75B8D6E8200DFF8A456E8DAEACEC428B427E9518741C92C6660"
+    }
+    
++ Response 201
+    {
+        "id": "57472118fc2805aa3556770d",
+        "recipientId": "57472118fc2805aa3556770c",
+        "providerType": "push",
+        "deviceId": "8fc2805aa3556770c8fc2805aa3556770c",
+        "token": "FE66489F304DC75B8D6E8200DFF8A456E8DAEACEC428B427E9518741C92C6660",
+        "registeredDate": "Mon May 30 2016 16:18:35 GMT+0300 (EEST)"
+    }
+       
+## Push recipient profile [/recipients/{recipientId}/profiles/push/unregister]
+
+### Unregister [POST]
+
++ Parameters
+    + recipientId: 57472118fc2805aa3556770c (string) - id of the recipient
+
++ Request (application/json)
+    {
+        "deviceId": "8fc2805aa3556770c8fc2805aa3556770c"
+    }
+    
++ Response 201
+    {
+        "id": "57472118fc2805aa3556770d",
+        "recipientId": "57472118fc2805aa3556770c",
+        "providerType": "push",
+        "deviceId": "8fc2805aa3556770c8fc2805aa3556770c",
+        "token": "FE66489F304DC75B8D6E8200DFF8A456E8DAEACEC428B427E9518741C92C6660",
+        "registeredDate": "Mon May 30 2016 16:18:35 GMT+0300 (EEST)"
+    }
+       

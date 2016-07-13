@@ -1,13 +1,20 @@
-'use strict';
-const authentication = require('./authentication');
-const user = require('./user');
 const mongoose = require('mongoose');
-module.exports = function() {
+const serverStatus = require('../helpers/server-status');
+
+const recipient = require('./recipient');
+const provider = require('./provider');
+const recipientProfile = require('./recipient-profile');
+const config = require('../helpers/config');
+
+module.exports = function () {
   const app = this;
-  
-  mongoose.connect(app.get('mongodb'));
+
+  mongoose.connect(config.get('db').url);
   mongoose.Promise = global.Promise;
-  
-  app.configure(authentication);
-  app.configure(user);
+
+  app.configure(recipient);
+  app.configure(provider);
+  app.configure(recipientProfile);
+
+  app.service('/', { find: serverStatus });
 };

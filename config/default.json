@@ -1,13 +1,26 @@
 {
   "host": "localhost",
-  "port": 3030,
-  "mongodb": "mongodb://localhost:27017/notificationMicroservice",
-  "public": "../public/",
-  "auth": {
-    "idField": "id",
-    "token": {
-      "secret": "gnAziVW1/qmt8UDQcjlOMR4SLv5+ij/OoCtqWbZ1xsuozGpgt19RjbaJSfrSc4bolDEVn3Q639HXNW+9mJYPzQ=="
-    },
-    "local": {}
+  "port": 3031,
+  "db": {
+    "url": "mongodb://localhost:27017/pingeon"
+  },
+  "pubsub": {
+    "id": "bab60de7",
+    "key": "0nabkCiVoCSxErMPhdsIFQ=="
+  },
+  "email": {
+    "key": "5pwwJkeIFIVKMbYct3CT2A",
+    "from": "noreply@pingeon.com"
+  },
+  "push": {
+    "key": "AKIAJW2SSA6LPZV3NZLA",
+    "secret": "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",
+    "region": "us-east-1",
+    "title": "Outfit",
+    "gsmAppArn": "arn:aws:sns:us-east-1:093525834944:app/GCM/outfit-development",
+    "apnsAppArn": "arn:aws:sns:us-east-1:093525834944:app/APNS_SANDBOX/outfit-development"
+  },
+  "amqp": {
+    "url": "amqp://localhost"
   }
 }
