@@ -35,5 +35,6 @@ module.exports = {
       { test: /\.json$/, loader: 'json-loader' }
     ]
   },
-  externals: nodeModules
+  externals: nodeModules,
+  devtool: 'source-map'
 };
