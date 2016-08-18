@@ -74,7 +74,7 @@ Notification Microservice.
     {
          "recipientId": "1",
          "vars": {
-             "name": "Kostyan"
+             "link": "https://some.com/#/alerts"
          },
          "to": ["test@test.com"],
          "cc": ["test@test.com"],
@@ -216,7 +216,9 @@ Notification Microservice.
 + Request (application/json)
     {
         "id": "57472118fc2805aa3556770d",
-        "address": "test@tep.io"
+        "address": "test@tep.io",
+        "firstName": "John",
+        "lastName": "Testerson"
     }
     
 + Response 201
