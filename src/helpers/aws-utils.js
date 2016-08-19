@@ -8,8 +8,7 @@ function getPushMessage({ platform, message, payload }) {
   if (platform === 'android') {
     pushMessage.GCM = { data: { message, title, payload } };
   } else if (platform === 'ios') {
-    const apnsEnv = process.env.NODE_ENV === 'production' ? 'APNS' : 'APNS_SANDBOX';
-    pushMessage[apnsEnv] = { aps: { alert: message, payload } };
+    pushMessage.APNS = { aps: { alert: message, payload } };
   }
 
   // have to stringify the inner objects and then entire payload
