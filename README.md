@@ -40,6 +40,8 @@ PUSH_REGION - AWS SNS region.
 PUSH_TITLE - Title for push notifications.
 GSM_APP_ARN - Android ARN for AWS SNS.
 APNS_APP_ARN - Apple iOS ARN for AWS SNS.
+
+SENTRY_DSN - DSN from getsentry.com
 ```
 
 ## API
