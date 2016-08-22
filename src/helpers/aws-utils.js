@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const config = require('./config');
 const { title, gsmAppArn, apnsAppArn } = config.get('push');
+const debug = require('debug')('app:helpers:aws-utils');
+const RecipientProfile = require('../services/recipient-profile/model');
 
 function getPushMessage({ platform, message, payload }) {
   const pushMessage = {};
@@ -26,4 +28,17 @@ function getLogGroup(platformApplicationArn) {
   return platformApplicationArn.replace('arn:aws:sns:', 'sns/').replace(/:/g, '/');
 }
 
-module.exports = { getPushMessage, getPlatformApplicationArn, getLogGroup };
+function isOldToken(error) {
+  return error && error.message === 'Invalid parameter: This endpoint is already registered with a different token.';
+}
+
+async function deleteOldToken(token) {
+  try {
+    await RecipientProfile.remove({ token });
+    debug('Deleted old token', token);
+  } catch (err) {
+    debug('Delete token error', err);
+  }
+}
+
+module.exports = { getPushMessage, getPlatformApplicationArn, getLogGroup, isOldToken, deleteOldToken };
