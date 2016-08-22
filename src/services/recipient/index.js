@@ -1,9 +1,12 @@
 const Service = require('../base-service');
-const recipient = require('./model');
+const Recipient = require('./model');
+const upsert = require('./routes/upsert');
 
 module.exports = function () {
   const app = this;
 
-  app.service('/recipients', new Service({ Model: recipient }));
+  app.service('/recipients', new Service({ Model: Recipient })
+    .extend({ create: upsert })
+  );
 
 };
