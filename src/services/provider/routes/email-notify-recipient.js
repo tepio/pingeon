@@ -20,6 +20,10 @@ module.exports = async({ template, vars, recipientId, to, cc, bcc, message, subj
   const resultVars = await addRecipientNameToVars(recipientId, vars);
 
   let res = await RecipientProfile.findOne({ recipientId, providerType: 'email' });
+  if (!res) {
+    debug('Recipient is not registered', { recipientId });
+    return { status: 'no recipient', recipientId };
+  }
   res = _.map(res, 'address');
   res = _.uniq(res);
   res = await Promise.map(res, address => {
