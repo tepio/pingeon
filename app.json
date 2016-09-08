@@ -1,23 +1,19 @@
-{
-  "name": "notification-microservice",
-  "scripts": {
-    "postdeploy": "npm db:clean"
-  },
-  "env": {
-    "DATABASE_URL": "mongodb://localhost:27017/notificationMicroservice",
-    "PUBSUB_ID": {
-      "required": true
+[
+  {
+    "recipientId": "1",
+    "vars": {
+      "link": "https://some.com/#/alerts"
     },
-    "PUBSUB_KEY": {
-      "required": true
-    }
-  },
-  "addons": [
-    "papertrail"
-  ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
-    }
-  ]
-}
+    "to": [
+      "test@test.com"
+    ],
+    "cc": [
+      "test@test.com"
+    ],
+    "bcc": [
+      "test@test.com"
+    ],
+    "message": "some message",
+    "subject": "some subject"
+  }
+]
