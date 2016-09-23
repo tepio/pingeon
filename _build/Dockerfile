@@ -11,8 +11,8 @@ COPY .cache /var/www/html
 
 COPY run.sh /root/run.sh
 
-RUN  npm install \
-    && npm prune --production
+RUN  npm install
+RUN  npm prune --production
 
 EXPOSE 8080
 
