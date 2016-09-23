@@ -12,6 +12,10 @@ COPY .cache /var/www/html
 
 COPY run.sh /root/run.sh
 
+RUN apk add --no-cache make gcc g++ python \
+    && npm install \
+    && npm prune --production
+
 EXPOSE 8080
 
 HEALTHCHECK CMD curl -f 127.0.0.1:8080 || exit 1

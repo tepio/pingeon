@@ -17,6 +17,6 @@ rm -rf ./_build/.cache/
 git clone $GIT ./_build/.cache/
 cd ./_build/.cache/
 git checkout $1
-npm install
+
 docker build -t $ECR_PATH:$1 ../
 docker push $ECR_PATH:$1
