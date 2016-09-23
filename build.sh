@@ -2,7 +2,6 @@
 
 set -e
 
-
 if [ -z "$1" ]; then
     echo "[ERROR] Specify version as a first argument. Example: ./build.sh v0.0.1"
     exit
