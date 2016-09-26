@@ -2,13 +2,20 @@ FROM mhart/alpine-node:4
 
 MAINTAINER Vanya Andreychuk "vanya@tep.io"
 
+RUN apk add --update curl make gcc g++ python \
+    && mkdir -p /var/www/html
+
 WORKDIR /var/www/html
+
 COPY .cache /var/www/html
+
 COPY run.sh /root/run.sh
 
-RUN apk add --no-cache make gcc g++ python
-RUN npm install
-RUN npm prune --production
+RUN  npm install \
+     && npm prune --production
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+
+HEALTHCHECK CMD curl -f 127.0.0.1:8080 || exit 1
+
+CMD ["/root/run.sh"]
