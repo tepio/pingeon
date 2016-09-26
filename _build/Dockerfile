@@ -1,9 +1,10 @@
 FROM mhart/alpine-node:4
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+MAINTAINER Vanya Andreychuk "vanya@tep.io"
+
+WORKDIR /var/www/html
+COPY .cache /var/www/html
+COPY run.sh /root/run.sh
 
 RUN apk add --no-cache make gcc g++ python
 RUN npm install
