@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:4
+FROM mhart/alpine-node:4.4.5
 
 MAINTAINER Vanya Andreychuk "vanya@tep.io"
 
