@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:4
+FROM musedlab/alpine-node
 
 MAINTAINER Vanya Andreychuk "vanya@tep.io"
 
@@ -12,6 +12,7 @@ COPY .cache /var/www/html
 COPY run.sh /root/run.sh
 
 RUN  npm install \
+     && npm run build \
      && npm prune --production
 
 EXPOSE 8080
