@@ -23,7 +23,13 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => new P
       template_content: [{}],
       message: mandrillMessage,
       async: false
-    }, resolve, reject);
+    }, res => {
+      debug('sent', res);
+      resolve(res);
+    }, err => {
+      debug('error', err);
+      reject(err);
+    });
   }
 
   return mandrillClient.messages.send({
