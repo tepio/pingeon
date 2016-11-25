@@ -27,7 +27,7 @@
     "dredd": "dredd",
     "build": "redrun clean babel",
     "clean": "del ./dist",
-    "babel": "babel --sourceMaps=true --copy-files -d dist/ src/",
+    "babel": "babel --source-maps --copy-files -d dist/ src/",
     "postinstall": "if-env NODE_ENV=production && npm run build && npm prune --production || npm run build",
     "deploy": "node ./deploy.js",
     "deploy:staging": "docker build -t outfit/pingeon:staging . && docker push outfit/pingeon:staging",
