@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const config = require('./config');
+const config = require('smart-config');
 const { title, gsmAppArn, apnsAppArn } = config.get('push');
 const debug = require('debug')('app:helpers:aws-utils');
 const RecipientProfile = require('../services/recipient-profile/model');

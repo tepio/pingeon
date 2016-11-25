@@ -1,5 +1,5 @@
 const debug = require('debug')('app:queue');
-const config = require('./config');
+const config = require('smart-config');
 const queueConfig = config.get('amqp');
 const queueClient = require('worque')(queueConfig.url);
 

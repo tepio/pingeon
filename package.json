@@ -1,7 +1,7 @@
 {
   "name": "pingeon",
   "description": "",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "",
   "main": "src/",
   "keywords": [
@@ -61,6 +61,7 @@
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "serve-favicon": "2.3.0",
+    "smart-config": "0.7.1",
     "source-map-support": "0.4.2",
     "worque": "0.9.3"
   },
@@ -69,7 +70,6 @@
     "babel-cli": "6.6.5",
     "babel-core": "6.7.4",
     "babel-eslint": "6.0.2",
-    "babel-loader": "6.2.4",
     "babel-plugin-transform-runtime": "6.6.0",
     "babel-preset-es2015": "6.6.0",
     "babel-preset-stage-0": "6.5.0",

@@ -2,7 +2,7 @@ const debug = require('debug')('app:email');
 
 const mandrill = require('mandrill-api/mandrill');
 const { getVars, getTo } = require('./mandrill-utils');
-const config = require('./config');
+const config = require('smart-config');
 const emailConfig = config.get('email');
 const mandrillClient = new mandrill.Mandrill(emailConfig.key);
 
