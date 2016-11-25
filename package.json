@@ -20,14 +20,15 @@
   "scripts": {
     "test": "npm run lint && npm run dredd && npm run mocha",
     "lint": "eslint --ignore-path .gitignore ./",
-    "start": "forever -m 5 --spinSleepTime 30000 --minUptime 1000 -af dist/server.bundle.js",
+    "start": "forever -m 5 --spinSleepTime 30000 --minUptime 1000 -af dist/",
     "start:dev": "DEBUG=app* babel-node src/",
     "server:mocked": "node dist/mocked.bundle.js",
     "mocha": "NODE_ENV=test mocha test/*.test.js",
     "dredd": "dredd",
-    "build": "webpack",
-    "watch": "webpack -w",
-    "postinstall": "if-env NODE_ENV=production && webpack && npm prune --production || webpack",
+    "build": "redrun clean babel",
+    "clean": "del ./dist",
+    "babel": "babel --sourceMaps=true --copy-files -d dist/ src/",
+    "postinstall": "if-env NODE_ENV=production && npm run build && npm prune --production || npm run build",
     "deploy": "node ./deploy.js",
     "deploy:staging": "docker build -t outfit/pingeon:staging . && docker push outfit/pingeon:staging",
     "deploy:production": "docker build -t outfit/pingeon:production . && docker push outfit/pingeon:production"
@@ -64,7 +65,7 @@
     "worque": "0.9.3"
   },
   "devDependencies": {
-    "if-env": "1.0.0",
+    "ava": "0.17.0",
     "babel-cli": "6.6.5",
     "babel-core": "6.7.4",
     "babel-eslint": "6.0.2",
@@ -75,18 +76,20 @@
     "babel-runtime": "6.6.1",
     "chai": "3.5.0",
     "clear-require": "1.0.1",
+    "del-cli": "0.2.0",
     "dredd": "1.0.11",
     "eslint": "2.6.0",
     "eslint-config-airbnb": "6.2.0",
     "hooks": "0.3.2",
+    "if-env": "1.0.0",
     "mocha": "2.4.5",
     "mockery": "1.4.1",
+    "redrun": "5.9.4",
     "request": "2.69.0",
     "require-subvert": "0.1.0",
     "shelljs": "0.7.4",
     "sinon": "1.17.3",
     "supertest": "1.2.0",
-    "supertest-promised": "1.0.0",
-    "webpack": "1.13.1"
+    "supertest-promised": "1.0.0"
   }
 }
