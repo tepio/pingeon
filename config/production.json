@@ -17,8 +17,7 @@
     "secret": "PUSH_SECRET",
     "region": "PUSH_REGION",
     "title": "PUSH_TITLE",
-    "gsmAppArn": "GSM_APP_ARN",
-    "apnsAppArn": "APNS_APP_ARN"
+    "appsArns": "APPS_ARNS"
   },
   "amqp": {
     "url": "AMQP_URL"

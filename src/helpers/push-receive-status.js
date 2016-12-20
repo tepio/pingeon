@@ -1,8 +1,17 @@
 const debug = require('debug')('app:helpers:push-receive-status');
 const Notification = require('../services/notification/model');
 
-function saveSuccessful({ platformApplicationArn, providerMessageId, platform, token, message, payload }) {
-  const result = { sendDate: new Date(), platformApplicationArn, providerMessageId, platform, token, message, payload };
+function saveSuccessful({ app, platformApplicationArn, providerMessageId, platform, token, message, payload }) {
+  const result = {
+    sendDate: new Date(),
+    app,
+    platformApplicationArn,
+    providerMessageId,
+    platform,
+    token,
+    message,
+    payload
+  };
   Notification.create(result);
   debug('push sent', result);
 

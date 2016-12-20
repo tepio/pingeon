@@ -23,6 +23,7 @@ const schema = new Schema({
     default: Date.now
   },
   deviceId: String,
+  app: Object,
   token: String
 });
 schema.plugin(renameId({ newIdName: 'id', mongoose }));
