@@ -17,8 +17,11 @@
     "secret": "VAIwf/lXL6vlPkn2DyPwjrWT2JaTm6YJ3Dc1p6Pi",
     "region": "us-east-1",
     "title": "Outfit",
-    "gsmAppArn": "arn:aws:sns:us-east-1:093525834944:app/GCM/outfit-development",
-    "apnsAppArn": "arn:aws:sns:us-east-1:093525834944:app/APNS_SANDBOX/outfit-development"
+    "appsArns": {
+      "android": "arn:aws:sns:us-east-1:093525834944:app/GCM/outfit-development",
+      "ios": "arn:aws:sns:us-east-1:093525834944:app/APNS_SANDBOX/outfit-development"
+    },
+    "defaultApp": "android"
   },
   "amqp": {
     "url": "amqp://localhost"

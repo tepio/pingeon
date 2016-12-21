@@ -1,8 +1,8 @@
 const RecipientProvider = require('../model');
 
-module.exports = async({ platform, deviceId, token, recipientId }) => {
+module.exports = async({ platform, deviceId, token, recipientId, app }) => {
   const newRecipientProvider = {
-    recipientId, deviceId, token, platform,
+    recipientId, deviceId, token, platform, app,
     providerType: 'push', registeredDate: new Date()
   };
 

@@ -14,6 +14,7 @@ const schema = new Schema({
   token: String,
   payload: Object,
   message: String,
+  app: Object,
   providerMessageId: String,
   sendDate: Date,
   received: Boolean,

@@ -10,10 +10,9 @@ const AWS = require('aws-sdk');
 AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
 const sns = promisifyAll(new AWS.SNS());
 
-async function send({ platform, token, message, payload }) {
+async function send({ app, platform, token, message, payload }) {
   try {
-
-    const platformApplicationArn = awsUtils.getPlatformApplicationArn(platform);
+    const platformApplicationArn = awsUtils.getPlatformApplicationArn(app);
     const pushMessage = awsUtils.getPushMessage({ platform, message, payload });
 
     const { EndpointArn } = await sns.createPlatformEndpointAsync({
@@ -26,11 +25,11 @@ async function send({ platform, token, message, payload }) {
       Message: pushMessage, MessageStructure: 'json',
       TargetArn: EndpointArn
     });
-    
+
     return pushReceiveStatus.saveSuccessful({
       platformApplicationArn,
       providerMessageId: MessageId,
-      platform, token, message, payload
+      platform, token, message, payload, app
     });
   } catch (error) {
     if (awsUtils.isOldToken(error)) return awsUtils.deleteOldToken(token);

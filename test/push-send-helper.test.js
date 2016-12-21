@@ -8,6 +8,7 @@ const Notification = require('../src/services/notification/model');
 const RecipientProfile = require('../src/services/recipient-profile/model');
 
 const platform = 'android';
+const app = { name: 'android' };
 const token = String(new Date());
 const message = String(new Date());
 const error = { message: String(new Date()) };
@@ -30,9 +31,10 @@ describe('Push', () => {
 
       it('should be sent', () => {
         return pushProvider
-          .send({ platform, token, message, payload })
+          .send({ platform, token, message, payload, app })
           .then(async res => {
             assert.equal(res.platform, platform);
+            assert.equal(res.app, app);
             assert.equal(res.message, message);
             assert.equal(res.token, token);
             assert.deepEqual(res.payload, payload);
@@ -55,7 +57,7 @@ describe('Push', () => {
       });
 
       before(() => {
-        pushProvider.send({ platform, token, message, payload });
+        pushProvider.send({ platform, token, message, payload, app });
       });
 
       it('should be fail', async() => {
@@ -71,22 +73,22 @@ describe('Push', () => {
     const oldTokenError = { message: 'Invalid parameter: This endpoint is already registered with a different token.' };
     const oldToken = String(new Date());
 
-    before(async () => {
-      await pushRegister({ token: oldToken, deviceId: 'some', recipientId: 'some' });
+    before(async() => {
+      await pushRegister({ token: oldToken, deviceId: 'some', recipientId: 'some', app });
     });
 
     before(async() => {
       const res = await RecipientProfile.findOne({ token: oldToken });
       assert.ok(res);
     });
-    
+
     before(() => {
       createEndpointStub.returns({ EndpointArn });
       publishStub.throws(oldTokenError);
     });
 
     before(() => {
-      pushProvider.send({ platform, token: oldToken, message, payload });
+      pushProvider.send({ platform, token: oldToken, message, payload, app });
     });
 
     it('should be no old device token', async() => {
