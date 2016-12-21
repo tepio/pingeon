@@ -20,7 +20,8 @@
     "appsArns": {
       "android": "arn:aws:sns:us-east-1:093525834944:app/GCM/outfit-development",
       "ios": "arn:aws:sns:us-east-1:093525834944:app/APNS_SANDBOX/outfit-development"
-    }
+    },
+    "defaultApp": "android"
   },
   "amqp": {
     "url": "amqp://localhost"

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const config = require('smart-config');
-const { title, appsArns } = config.get('push');
+const { title, appsArns, defaultApp } = config.get('push');
 const debug = require('debug')('app:helpers:aws-utils');
 const RecipientProfile = require('../services/recipient-profile/model');
 
@@ -21,7 +21,8 @@ function getPushMessage({ platform, message, payload }) {
 }
 
 function getPlatformApplicationArn(app) {
-  app = _.get(app, 'name') || app;
+  app = _.get(app, 'name') || app || defaultApp;
+
   const appArn = appsArns[app];
   if (!appArn) throw new Error('No ARN for the app ' + app);
   return appArn;

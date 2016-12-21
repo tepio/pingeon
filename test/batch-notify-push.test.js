@@ -1,5 +1,6 @@
 require('./test-env');
 
+const config = require('smart-config');
 const { toObject } = require('node-helpers');
 const Notification = require('../src/services/notification/model');
 
@@ -40,7 +41,7 @@ describe('Push send', () => {
     });
   });
 
-  describe('no app', () => {
+  describe('default app', () => {
 
     let recipientWithoutApp;
     const message = String(new Date() + 'no app');
@@ -53,7 +54,7 @@ describe('Push send', () => {
       });
     });
 
-    it('should throw error', async() => {
+    it('should use default app', async() => {
       await request
         .post('/notification/batch')
         .send({
@@ -64,8 +65,11 @@ describe('Push send', () => {
       await helpers.timeout(1000);
       const notification = toObject(await Notification.findOne({ message }));
 
-      assert(notification.error.message);
-      assert(notification.error.stack);
+      assert.equal(notification.token, token);
+      assert.equal(notification.platform, platform);
+      assert.equal(notification.message, message);
+      assert(notification.sendDate);
+      assert(!notification.error);
     });
   });
 
