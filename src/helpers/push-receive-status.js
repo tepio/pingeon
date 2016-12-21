@@ -18,9 +18,10 @@ function saveSuccessful({ app, platformApplicationArn, providerMessageId, platfo
   return result;
 }
 
-function saveFailed({ platform, token, message, payload, error }) {
-  const failedPush = { platform, token, message, payload, error };
-  Notification.create(failedPush);
+function saveFailed({ error, ...failedPush }) {
+  error = { message: error.message, stack: error.stack };
+
+  Notification.create({ error, ...failedPush });
   debug('push sent', failedPush);
 }
 
