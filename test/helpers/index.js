@@ -14,6 +14,12 @@ function createRandomRecipient(recipient) {
   }, recipient));
 }
 
+function timeout(ms) {
+  return new Promise(res => {
+    setTimeout(res, ms);
+  });
+}
+
 async function createRecipientProfile({ recipientId, address = 'some', ...other }) {
   recipientId = recipientId || (await createRandomRecipient({ id: recipientId })).id;
 
@@ -24,5 +30,6 @@ module.exports = {
   createRandomRecipient,
   createRecipientProfile,
   db,
+  timeout,
   randomId
 };

@@ -1,8 +1,10 @@
 const assert = require('assert');
 const pushProvider = require('../src/helpers/push-send');
 
-const token = '5c35a598c08f0e8e3d973714fd00df295db7c555f74ddfb4e60c1fdd7662d602';
-const platform = 'ios';
+const token = 'd387VFC_RBs:APA91bFTfo0-GYuOpRHmaPqyERHKJGpOtHhUib9unDTzwr9DRqUO5scoh2ffftzI4DIEnNom4szjVImQWljVy7B1l' +
+  'nMuQfd-WD6IS727ewCcx3Yp227qsJiv03fHsHfTtfOANhpz2vEX';
+const platform = 'android';
+const app = 'android';
 const message = 'Hello!';
 const payload = { badge: 5 };
 
@@ -10,7 +12,7 @@ describe('Push', () => {
 
   it('should be sent', () => {
     return pushProvider
-      .send({ platform, token, message, payload })
+      .send({ platform, token, message, payload, app })
       .then(() => {
         setTimeout(() => assert(ctx.pushSendSpy.called), 100000);
       });

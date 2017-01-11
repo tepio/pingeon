@@ -1,6 +1,5 @@
 const errorhandler = require('./errorhandler');
 const notFound = require('./not-found-handler');
-const logger = require('./logger');
 
 module.exports = function () {
   // Add your custom middleware here. Remember, that
@@ -9,6 +8,5 @@ module.exports = function () {
   const app = this;
 
   app.use(notFound());
-  app.use(logger(app));
   app.use(errorhandler());
 };

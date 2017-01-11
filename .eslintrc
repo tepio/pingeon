@@ -27,9 +27,10 @@
   "rules": {
     "quotes": [2, "single"],
     "max-len": [2, {"code": 120, "tabWidth": 2}],
-    "no-console": 2,
+    "no-console": 1,
     "handle-callback-err": 2,
     "no-trailing-spaces": 0,
+    "no-use-before-define": 0,
     "arrow-body-style": 0,
     "padded-blocks": 0,
     "no-shadow": 0,

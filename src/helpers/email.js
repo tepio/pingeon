@@ -1,6 +1,6 @@
 const debug = require('debug')('app:email');
 
-const config = require('./config');
+const config = require('smart-config');
 const emailConfig = config.get('email');
 const { promisifyAll } = require('bluebird');
 const postmark = require('postmark');

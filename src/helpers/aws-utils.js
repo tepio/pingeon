@@ -1,6 +1,6 @@
 const _ = require('lodash');
-const config = require('./config');
-const { title, gsmAppArn, apnsAppArn } = config.get('push');
+const config = require('smart-config');
+const { title, appsArns, defaultApp } = config.get('push');
 const debug = require('debug')('app:helpers:aws-utils');
 const RecipientProfile = require('../services/recipient-profile/model');
 
@@ -20,8 +20,12 @@ function getPushMessage({ platform, message, payload }) {
   return JSON.stringify(pushMessage);
 }
 
-function getPlatformApplicationArn(platform) {
-  return platform === 'android' ? gsmAppArn : apnsAppArn;
+function getPlatformApplicationArn(app) {
+  app = _.get(app, 'name') || app || defaultApp;
+
+  const appArn = appsArns[app];
+  if (!appArn) throw new Error('No ARN for the app ' + app);
+  return appArn;
 }
 
 function getLogGroup(platformApplicationArn) {

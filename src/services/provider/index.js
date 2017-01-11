@@ -45,8 +45,8 @@ module.exports = function () {
 
   app.service('/provider/push/token', {
     create(data) {
-      const { message, payload, token } = data;
-      return pushNotifyToken({ message, payload, token });
+      const { message, payload, token, app } = data;
+      return pushNotifyToken({ message, payload, token, app });
     }
   });
 
