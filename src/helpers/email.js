@@ -8,6 +8,11 @@ const client = promisifyAll(new postmark.Client(emailConfig.key));
 
 const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
 
+  const defaultVars = {
+    to_email: email || to,
+    current_year: new Date().getFullYear()
+  };
+
   try {
     const options = {
       From: emailConfig.from,
@@ -19,7 +24,7 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
     if (template) {
       return client.sendEmailWithTemplateAsync({
         TemplateId: template,
-        TemplateModel: vars,
+        TemplateModel: Object.assign({}, defaultVars, vars),
         ...options
       });
     }
