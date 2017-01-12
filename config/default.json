@@ -10,7 +10,11 @@
   },
   "email": {
     "key": "e1ce56d7-2e88-44a0-a851-3bc58ef0074c",
-    "from": "constantine@tep.io"
+    "from": "constantine@tep.io",
+    "defaultVars": {
+      "company_name": "dev",
+      "company_logo": "http://res.cloudinary.com/tep-io/image/upload/v1462981832/staging/hatch-logo.png"
+    }
   },
   "push": {
     "key": "AKIAJW2SSA6LPZV3NZLA",

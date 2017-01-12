@@ -24,7 +24,7 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
     if (template) {
       return client.sendEmailWithTemplateAsync({
         TemplateId: template,
-        TemplateModel: Object.assign({}, defaultVars, vars),
+        TemplateModel: { ...emailConfig.defaultVars, ...defaultVars, ...vars },
         ...options
       });
     }

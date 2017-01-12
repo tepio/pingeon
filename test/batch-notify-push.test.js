@@ -1,6 +1,5 @@
 require('./test-env');
 
-const config = require('smart-config');
 const { toObject } = require('node-helpers');
 const Notification = require('../src/services/notification/model');
 
