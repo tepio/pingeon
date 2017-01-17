@@ -33,7 +33,7 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => new P
   }
 
   return mandrillClient.messages.send({
-    message: { ...mandrillMessage, text: message },
+    message: { ...mandrillMessage, html: message },
     async: false
   }, res => {
     debug('sent', res);
