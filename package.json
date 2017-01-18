@@ -28,7 +28,6 @@
     "build": "redrun clean babel",
     "clean": "del ./dist",
     "babel": "babel --source-maps --copy-files -d dist/ src/",
-    "postinstall": "if-env NODE_ENV=production && npm run build && npm prune --production || npm run build",
     "deploy": "node ./deploy.js",
     "deploy:staging": "docker build -t outfit/pingeon:staging . && docker push outfit/pingeon:staging",
     "deploy:production": "docker build -t outfit/pingeon:production . && docker push outfit/pingeon:production"
@@ -61,7 +60,7 @@
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "serve-favicon": "2.3.0",
-    "smart-config": "0.7.2",
+    "smart-config": "0.7.3",
     "source-map-support": "0.4.2",
     "worque": "0.9.3"
   },
