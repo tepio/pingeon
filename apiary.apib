@@ -99,7 +99,8 @@ Notification Microservice.
         {
             "recipientId": "1",
             "message": "Hello",
-            "payload": {}
+            "payload": {},
+            "app": { "name": "Enterprise" }
         }
 
 + Response 201
@@ -108,6 +109,7 @@ Notification Microservice.
             "message": "Hello",
             "providerMessageId": "2",
             "payload": {},
+            "app": { "name": "Enterprise" },
             "sendDate": "2016-05-20T17:19:15.602Z",
             "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
         }]
@@ -120,7 +122,8 @@ Notification Microservice.
         {
             "token": "1",
             "message": "Hello",
-            "payload": {}
+            "payload": {},
+            "app": { "name": "Enterprise" }
         }
 
 + Response 201
@@ -129,6 +132,7 @@ Notification Microservice.
             "message": "Hello",
             "providerMessageId": "2",
             "payload": {},
+            "app": { "name": "Enterprise" },
             "sendDate": "2016-05-20T17:19:15.602Z",
             "platformApplicationArn":"arn:aws:sns:us-east-1:1:app/APNS_SANDBOX/1"
         }
@@ -151,6 +155,7 @@ Notification Microservice.
               "payload": {
                 "link": "inspection://inspection/123567/#comment-1234567"
               },
+              "app": { "name": "Enterprise" },
               "tokens": ["1", "2"]
             },
             "pubsub": {

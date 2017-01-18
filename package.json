@@ -18,7 +18,7 @@
     "node": "4.4.4"
   },
   "scripts": {
-    "test": "npm run lint && npm run dredd && npm run mocha",
+    "test": "npm run lint && npm run mocha",
     "lint": "eslint --ignore-path .gitignore ./",
     "start": "forever -m 5 --spinSleepTime 30000 --minUptime 1000 -af dist/",
     "start:dev": "DEBUG=app* babel-node src/",
@@ -28,7 +28,6 @@
     "build": "redrun clean babel",
     "clean": "del ./dist",
     "babel": "babel --source-maps --copy-files -d dist/ src/",
-    "postinstall": "if-env NODE_ENV=production && npm run build && npm prune --production || npm run build",
     "deploy": "node ./deploy.js",
     "deploy:staging": "docker build -t outfit/pingeon:staging . && docker push outfit/pingeon:staging",
     "deploy:production": "docker build -t outfit/pingeon:production . && docker push outfit/pingeon:production"
@@ -61,7 +60,7 @@
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "serve-favicon": "2.3.0",
-    "smart-config": "0.7.2",
+    "smart-config": "0.7.3",
     "source-map-support": "0.4.2",
     "worque": "0.9.3"
   },
@@ -77,7 +76,6 @@
     "chai": "3.5.0",
     "clear-require": "1.0.1",
     "del-cli": "0.2.0",
-    "dredd": "1.0.11",
     "eslint": "2.6.0",
     "eslint-config-airbnb": "6.2.0",
     "hooks": "0.3.2",
