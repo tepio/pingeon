@@ -8,7 +8,7 @@ if [ -z "$1" ]; then
 fi
 
 eval $(aws ecr get-login --region us-east-1)
-ECR_PATH=093525834944.dkr.ecr.us-east-1.amazonaws.com/hatch-insp/pingeon
+ECR_PATH=093525834944.dkr.ecr.us-east-1.amazonaws.com/tep/pingeon
 
 GIT=git@github.com:tepio/pingeon.git
 
