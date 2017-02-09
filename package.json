@@ -28,6 +28,7 @@
     "build": "redrun clean babel",
     "clean": "del ./dist",
     "babel": "babel --source-maps --copy-files -d dist/ src/",
+    "heroku-postbuild": "npm run build",
     "deploy": "node ./deploy.js",
     "deploy:staging": "docker build -t outfit/pingeon:staging . && docker push outfit/pingeon:staging",
     "deploy:production": "docker build -t outfit/pingeon:production . && docker push outfit/pingeon:production"
