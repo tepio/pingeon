@@ -2,7 +2,7 @@
   "host": "localhost",
   "port": 3031,
   "db": {
-    "url": "mongodb://localhost:27017/pingeon"
+    "url": "DATABASE_URL"
   },
   "pubsub": {
     "id": "bab60de7",

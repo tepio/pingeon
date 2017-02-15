@@ -38,8 +38,11 @@ PUSH_KEY - AWS key.
 PUSH_SECRET - AWS secret.
 PUSH_REGION - AWS SNS region.
 PUSH_TITLE - Title for push notifications.
-GSM_APP_ARN - Android ARN for AWS SNS.
-APNS_APP_ARN - Apple iOS ARN for AWS SNS.
+APPS_ARNS - Object with arn for every app. Example: {
+  "android": "arn:aws:sns:us-east-1:093525834944:app/GCM/android",
+  "ios": "arn:aws:sns:us-east-1:093525834944:app/APNS/ios"
+}
+DEFAULT_APP - default app from the list above.
 
 SENTRY_DSN - DSN from getsentry.com
 ```

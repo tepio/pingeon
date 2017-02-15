@@ -33,3 +33,5 @@ data/
 .idea
 dist
 _build/.cache
+
+.env.json
