@@ -12,8 +12,13 @@
     "key": "e1ce56d7-2e88-44a0-a851-3bc58ef0074c",
     "from": "constantine@tep.io",
     "defaultVars": {
-      "company_name": "dev",
-      "company_logo": "http://res.cloudinary.com/tep-io/image/upload/v1462981832/staging/hatch-logo.png"
+      "companyName": "dev",
+      "companyLogo": "http://res.cloudinary.com/tep-io/image/upload/v1462981832/staging/hatch-logo.png"
+    },
+    "templatesMap": {
+      "alerts": "991101",
+      "broadcast-messages": "991102",
+      "reports": "1315901"
     }
   },
   "push": {

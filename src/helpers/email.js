@@ -4,6 +4,7 @@ const config = require('smart-config');
 const emailConfig = config.get('email');
 const { promisifyAll } = require('bluebird');
 const postmark = require('postmark');
+const getTemplate = require('./get-template');
 const client = promisifyAll(new postmark.Client(emailConfig.key));
 
 const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
@@ -23,7 +24,7 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
 
     if (template) {
       return client.sendEmailWithTemplateAsync({
-        TemplateId: template,
+        TemplateId: getTemplate(template),
         TemplateModel: { ...emailConfig.defaultVars, ...defaultVars, ...vars },
         ...options
       });

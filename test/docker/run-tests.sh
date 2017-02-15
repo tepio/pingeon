@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # If script wasn't run in Jenkins set default tag
-if [ -z "$BUILD_TAG" ]
+if [ -z "$JOB_NAME" ]
 then
-  BUILD_TAG="test-1"
+  JOB_NAME="test-1"
 fi
 
 # Prepare project and container names for proper status check
-PROJECT=`echo $BUILD_TAG | sed "s/\-//g"`
+PROJECT=`echo $JOB_NAME | sed "s/\-//g"`
 CONTAINER=$PROJECT"_app_1"
 
 # Build environment and run ci scripts
