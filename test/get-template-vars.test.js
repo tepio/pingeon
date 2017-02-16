@@ -32,13 +32,14 @@ describe('Get template vars', () => {
     });
   });
 
-  describe('User not exist', async() => {
+  describe('User not exist', () => {
 
-    const resultVars = await getTemplateVars({ vars, toEmail, recipientId: helpers.randomId() });
+    let resultVars;
+    before(async() => {
+      resultVars = await getTemplateVars({ vars, toEmail, recipientId: helpers.randomId() });
+    });
 
     it('should have all expected vars', () => {
-      assert.equal(resultVars.firstName, recipient.firstName);
-      assert.equal(resultVars.lastName, recipient.lastName);
       assert.equal(resultVars.currentYear, new Date().getFullYear());
       assert.equal(resultVars.toEmail, toEmail);
       assert.ok(isMatch(resultVars), defaultVars);
