@@ -4,33 +4,32 @@ const config = require('smart-config');
 const emailConfig = config.get('email');
 const { promisifyAll } = require('bluebird');
 const postmark = require('postmark');
-const getTemplate = require('./get-template');
+const getTemplateId = require('./get-template-id');
+const getTemplateVars = require('./get-template-vars');
 const client = promisifyAll(new postmark.Client(emailConfig.key));
 
-const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
-
-  const defaultVars = {
-    to_email: email || to,
-    current_year: new Date().getFullYear()
-  };
-
+const send = async({ email, to, cc, bcc, subject, message, template, vars, recipientId }) => {
   try {
+    const toEmail = email || to;
     const options = {
       From: emailConfig.from,
-      To: email || to,
+      To: toEmail,
       Cc: cc,
       Bcc: bcc
     };
 
     if (template) {
-      return client.sendEmailWithTemplateAsync({
-        TemplateId: getTemplate(template),
-        TemplateModel: { ...emailConfig.defaultVars, ...defaultVars, ...vars },
+      const templateId = getTemplateId(template);
+      const resultVars = await getTemplateVars({ vars, toEmail, recipientId });
+
+      return await client.sendEmailWithTemplateAsync({
+        TemplateId: templateId,
+        TemplateModel: resultVars,
         ...options
       });
     }
 
-    return client.sendEmailAsync({
+    return await client.sendEmailAsync({
       TextBody: message,
       Subject: subject,
       ...options
@@ -40,7 +39,6 @@ const send = ({ email, to, cc, bcc, subject, message, template, vars }) => {
     debug(err);
     return err;
   }
-
 };
 
 module.exports = { send };

@@ -22,9 +22,9 @@ describe('Email notify recipient', () => {
       .send({ recipientId, template, vars })
       .expect(201)
       .expect(({ body }) => {
-        const { FIRST_NAME, LAST_NAME } = body[0].vars;
-        assert.equal(FIRST_NAME, firstName);
-        assert.equal(LAST_NAME, lastName);
+        const vars = body[0].TemplateModel;
+        assert.equal(vars.firstName, firstName);
+        assert.equal(vars.lastName, lastName);
       })
   );
 

@@ -1,18 +1,16 @@
 require('./test-env');
 
-const assert = require('assert');
+const { isMatch } = require('lodash');
 const emailProvider = require('../src/helpers/email');
-const email = 'kozzztya@gmail.com';
+const templatesMap = require('smart-config').get('email.templatesMap');
+const email = 'testerson@gmail.com';
 const cc = email;
 const bcc = email;
-const template = '973317';
+const template = 'alerts';
 const vars = {
-  product_name: 'Pingeon',
-  name: 'Vasya',
-  action_url: 'http://google.com',
-  sender_name: 'Petya',
-  product_address_line1: 'http://google.com',
-  product_address_line2: 'http://google.com'
+  firstName: 'Constantine',
+  actionUrl: 'http://google.com',
+  message: 'Alerts test'
 };
 const message = 'Hello!';
 const subject = 'Test!';
@@ -22,26 +20,21 @@ describe('Email send', function () {
 
   describe('message', () => {
 
-    it('should be sent', done => {
-      return emailProvider
-        .send({ email, message, subject, cc, bcc })
-        .then(res => {
-          assert.ok(res);
-          done();
-        });
+    it('should be sent', async() => {
+      const res = await emailProvider.send({ email, message, subject, cc, bcc });
+      assert.ok(isMatch(res.TextBody, message));
+      assert.ok(isMatch(res.Subject, subject));
     });
 
   });
 
   describe('template', () => {
 
-    it('should be sent', done => {
-      return emailProvider
-        .send({ email, template, vars, cc, bcc })
-        .then(res => {
-          assert.ok(res);
-          done();
-        });
+    it('should be sent', async() => {
+      const res = await emailProvider.send({ subject, email, template, vars, cc, bcc });
+
+      assert.equal(res.TemplateId, templatesMap[template]);
+      assert.ok(isMatch(res.TemplateModel, vars));
     });
 
   });
