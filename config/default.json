@@ -5,16 +5,16 @@
     "url": "DATABASE_URL"
   },
   "pubsub": {
-    "id": "bab60de7",
-    "key": "0nabkCiVoCSxErMPhdsIFQ=="
+    "id": "PUBSUB_ID",
+    "key": "PUBSUB_KEY"
   },
   "email": {
-    "key": "5pwwJkeIFIVKMbYct3CT2A",
-    "from": "noreply@pingeon.com"
+    "key": "EMAIL_KEY",
+    "from": "EMAIL_FROM"
   },
   "push": {
-    "key": "AKIAJW2SSA6LPZV3NZLA",
-    "secret": "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",
+    "key": "PUSH_KEY",
+    "secret": "PUSH_SECRET",
     "region": "us-east-1",
     "title": "Outfit",
     "appsArns": {
