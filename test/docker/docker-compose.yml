@@ -1,6 +1,7 @@
 version: '2'
 services:
   app:
+    container_name: app
     build:
       context: ../../
       dockerfile: ./test/docker/Dockerfile
@@ -10,5 +11,3 @@ services:
       DATABASE_URL: "mongodb://mongo:27017/pingeon"
   mongo:
     image: "mvertes/alpine-mongo"
-    logging:
-      driver: none
