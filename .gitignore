@@ -34,4 +34,4 @@ data/
 dist
 _build/.cache
 
-.env.json
+.env*
