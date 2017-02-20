@@ -5,25 +5,18 @@
     "url": "DATABASE_URL"
   },
   "pubsub": {
-    "id": "bab60de7",
-    "key": "0nabkCiVoCSxErMPhdsIFQ=="
+    "id": "PUBSUB_ID",
+    "key": "PUBSUB_KEY"
   },
   "email": {
-    "key": "e1ce56d7-2e88-44a0-a851-3bc58ef0074c",
-    "from": "constantine@tep.io",
-    "defaultVars": {
-      "companyName": "dev",
-      "companyLogo": "http://res.cloudinary.com/tep-io/image/upload/v1462981832/staging/hatch-logo.png"
-    },
-    "templatesMap": {
-      "alerts": "991101",
-      "broadcast-messages": "991102",
-      "reports": "1315901"
-    }
+    "key": "EMAIL_KEY",
+    "from": "EMAIL_FROM",
+    "defaultVars": "EMAIL_DEFAULT_VARS",
+    "templatesMap": "EMAIL_TEMPLATES_MAP"
   },
   "push": {
-    "key": "AKIAJW2SSA6LPZV3NZLA",
-    "secret": "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",
+    "key": "PUSH_KEY",
+    "secret": "PUSH_SECRET",
     "region": "us-east-1",
     "title": "Outfit",
     "appsArns": {
