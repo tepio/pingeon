@@ -59,6 +59,7 @@
     "mongoose": "4.4.10",
     "mongoose-rename-id": "1.0.2",
     "node-helpers": "~1.0.8",
+    "postmark": "1.2.1",
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "serve-favicon": "2.3.0",

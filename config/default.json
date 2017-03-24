@@ -10,7 +10,16 @@
   },
   "email": {
     "key": "EMAIL_KEY",
-    "from": "EMAIL_FROM"
+    "from": "EMAIL_FROM",
+    "defaultVars": {
+      "companyName": "test",
+      "companyLogo": "https://s-media-cache-ak0.pinimg.com/736x/3f/26/f7/3f26f736feb2c0878919db2cdbaee096.jpg"
+    },
+    "templatesMap": {
+      "alerts": "991101",
+      "broadcast-messages": "991102",
+      "reports": "1315901"
+    }
   },
   "push": {
     "key": "PUSH_KEY",

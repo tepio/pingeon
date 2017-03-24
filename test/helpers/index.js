@@ -2,6 +2,14 @@ const RecipientProvider = require('../../src/services/recipient-profile/model');
 const Recipient = require('../../src/services/recipient/model');
 const db = require('./db');
 const { ObjectId } = require('mongoose').mongo;
+const requireSubvert = require('require-subvert')(__dirname);
+
+function requireStub(path) {
+  return (value) => {
+    requireSubvert.subvert(path, value);
+  };
+}
+
 
 function randomId() {
   return new ObjectId();
@@ -31,5 +39,6 @@ module.exports = {
   createRecipientProfile,
   db,
   timeout,
-  randomId
+  randomId,
+  requireStub
 };

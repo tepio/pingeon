@@ -10,7 +10,9 @@
   },
   "email": {
     "key": "EMAIL_KEY",
-    "from": "EMAIL_FROM"
+    "from": "EMAIL_FROM",
+    "defaultVars": "EMAIL_DEFAULT_VARS",
+    "templatesMap": "EMAIL_TEMPLATES_MAP"
   },
   "push": {
     "key": "PUSH_KEY",

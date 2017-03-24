@@ -33,6 +33,8 @@ PUBSUB_KEY - pub/sub provider secret key.
 
 EMAIL_KEY - email provider secret key. 
 EMAIL_FROM - for example noreply@tep.io
+EMAIL_DEFAULT_VARS - defaults vars used in email templates
+EMAIL_TEMPLATE_MAPS - map template name and template id.
 
 PUSH_KEY - AWS key.
 PUSH_SECRET - AWS secret.
@@ -45,6 +47,20 @@ APPS_ARNS - Object with arn for every app. Example: {
 DEFAULT_APP - default app from the list above.
 
 SENTRY_DSN - DSN from getsentry.com
+```
+
+## Email
+
+Pingeon pass own template variables to help you automate email sending:
+- firstName - recipient's first name;
+- toEmail - recipient's email;
+- currentYear - guess what.
+
+As template Pingeon can use template id or your own name. Just set in env var `EMAIL_TEMPLATE_MAPS`:
+```json
+{
+  "templateName" : "templateId"
+}
 ```
 
 ## API
