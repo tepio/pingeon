@@ -8,11 +8,11 @@ const getTemplateId = require('./get-template-id');
 const getTemplateVars = require('./get-template-vars');
 const client = promisifyAll(new postmark.Client(emailConfig.key));
 
-const send = async({ email, to, cc, bcc, subject, message, template, vars, recipientId }) => {
+const send = async({ email, from, to, cc, bcc, subject, message, template, vars, recipientId }) => {
   try {
     const toEmail = email || to;
     const options = {
-      From: emailConfig.from,
+      From: from || emailConfig.from,
       To: toEmail,
       Cc: cc,
       Bcc: bcc
