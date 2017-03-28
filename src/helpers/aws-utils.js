@@ -2,7 +2,7 @@ const _ = require('lodash');
 const config = require('smart-config');
 const { title, appsArns, defaultApp } = config.get('push');
 const debug = require('debug')('app:helpers:aws-utils');
-const RecipientProfile = require('../services/recipient-profile/model');
+const multiDB = require('mongoose-multi-connect');
 
 function getPushMessage({ platform, message, payload }) {
   const pushMessage = {};
@@ -36,8 +36,9 @@ function isOldToken(error) {
   return error && error.message === 'Invalid parameter: This endpoint is already registered with a different token.';
 }
 
-async function deleteOldToken(token) {
+async function deleteOldToken(token, locationGroup) {
   try {
+    const RecipientProfile = multiDB.getModel('recipientprofiles', locationGroup);
     await RecipientProfile.remove({ token });
     debug('Deleted old token', token);
   } catch (err) {
