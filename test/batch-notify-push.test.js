@@ -1,7 +1,7 @@
 require('./test-env');
 
 const { toObject } = require('node-helpers');
-const Notification = require('../src/services/notification/model');
+const Notification = require('mongoose-multi-connect').getModel('notifications');
 
 const platform = 'android';
 const app = { name: 'android' };
@@ -24,6 +24,7 @@ describe('Push send', () => {
     it('should be sent', async() => {
       await request
         .post('/notification/batch')
+        .set('x-location-group', 'location1')
         .send({
           recipients: [recipientId],
           providers: { push: { message } }
@@ -56,6 +57,7 @@ describe('Push send', () => {
     it('should use default app', async() => {
       await request
         .post('/notification/batch')
+        .set('x-location-group', 'location1')
         .send({
           recipients: [recipientWithoutApp],
           providers: { push: { message } }

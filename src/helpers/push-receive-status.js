@@ -1,7 +1,12 @@
 const debug = require('debug')('app:helpers:push-receive-status');
-const Notification = require('../services/notification/model');
+const multiDB = require('mongoose-multi-connect');
 
-function saveSuccessful({ app, platformApplicationArn, providerMessageId, platform, token, message, payload }) {
+function saveSuccessful({
+  app, platformApplicationArn, providerMessageId,
+  platform, token, message, payload, locationGroup
+}) {
+  const Notification = multiDB.getModel('notifications', locationGroup);
+
   const result = {
     sendDate: new Date(),
     app,
@@ -10,7 +15,8 @@ function saveSuccessful({ app, platformApplicationArn, providerMessageId, platfo
     platform,
     token,
     message,
-    payload
+    payload,
+    locationGroup
   };
   Notification.create(result);
   debug('push sent', result);
@@ -18,10 +24,11 @@ function saveSuccessful({ app, platformApplicationArn, providerMessageId, platfo
   return result;
 }
 
-function saveFailed({ error, ...failedPush }) {
+function saveFailed({ error, locationGroup, ...failedPush }) {
+  const Notification = multiDB.getModel('notifications', locationGroup);
   error = { message: error.message, stack: error.stack };
 
-  Notification.create({ error, ...failedPush });
+  Notification.create({ error, locationGroup, ...failedPush });
   debug('push sent', failedPush);
 }
 

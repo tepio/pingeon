@@ -4,8 +4,8 @@ const { createEndpointStub, publishStub } = mocks.awsStub.getStubs();
 
 const pushProvider = require('../src/helpers/push-send');
 const pushRegister = require('../src/services/recipient-profile/routes/push-register');
-const Notification = require('../src/services/notification/model');
-const RecipientProfile = require('../src/services/recipient-profile/model');
+const Notification = require('mongoose-multi-connect').getModel('notifications');
+const RecipientProfile = require('mongoose-multi-connect').getModel('recipientprofiles');
 
 const platform = 'android';
 const app = { name: 'android' };
@@ -61,7 +61,9 @@ describe('Push', () => {
       });
 
       it('should be fail', async() => {
-        assert.ok(await Notification.findOne({ error }));
+        await helpers.timeout(500);
+        const res = await Notification.findOne({ error });
+        assert.ok(res);
       });
 
     });
@@ -92,6 +94,7 @@ describe('Push', () => {
     });
 
     it('should be no old device token', async() => {
+      await helpers.timeout(500);
       const res = await RecipientProfile.findOne({ token: oldToken });
       assert.ok(!res);
     });

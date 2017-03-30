@@ -1,7 +1,6 @@
-import renameId from 'mongoose-rename-id';
-import mongoose, { Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 
-const schema = new Schema({
+module.exports = new Schema({
   recipientId: String,
   address: {
     type: String
@@ -19,8 +18,6 @@ const schema = new Schema({
   sendDate: Date,
   received: Boolean,
   receiveStatus: Object,
-  error: Object
-});
-schema.plugin(renameId({ newIdName: 'id', mongoose }));
-
-module.exports = mongoose.model('notification', schema);
+  error: Object,
+  locationGroup: String
+}, { versionKey: false });

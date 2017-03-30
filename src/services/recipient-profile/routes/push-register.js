@@ -1,6 +1,7 @@
-const RecipientProvider = require('../model');
+const multiDB = require('mongoose-multi-connect');
 
-module.exports = async({ platform, deviceId, token, recipientId, app }) => {
+module.exports = async function ({ platform, deviceId, token, recipientId, app }, params) {
+  const RecipientProvider = multiDB.getModel('recipientprofiles', params, 'locationGroup');
   const newRecipientProvider = {
     recipientId, deviceId, token, platform, app,
     providerType: 'push', registeredDate: new Date()

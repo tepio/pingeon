@@ -1,10 +1,12 @@
 const debug = require('debug')('app:email-notify-recipient');
-const RecipientProfile = require('../../recipient-profile/model');
+const multiDB = require('mongoose-multi-connect');
 const emailHelper = require('../../../helpers/email');
 const Promise = require('bluebird');
 const _ = require('lodash');
 
-module.exports = async({ recipientId, ...otherConfig }) => {
+module.exports = async({ recipientId, ...otherConfig }, params) => {
+  const locationGroup = _.get(params, 'locationGroup');
+  const RecipientProfile = multiDB.getModel('recipientprofiles', locationGroup);
   let res = await RecipientProfile.findOne({ recipientId, providerType: 'email' });
   if (!res) {
     debug('Recipient is not registered', { recipientId });
@@ -14,7 +16,7 @@ module.exports = async({ recipientId, ...otherConfig }) => {
   res = _.uniq(res);
   res = await Promise.map(res, address => {
     return emailHelper.send({
-      email: address, recipientId, ...otherConfig
+      email: address, recipientId, locationGroup, ...otherConfig
     });
   });
   res = _.flatten(res);

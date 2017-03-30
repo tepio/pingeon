@@ -13,11 +13,12 @@ describe('Pubsub recipient prefix', () => {
       ctx.message = res;
     });
   });
-  
+
   describe('single request', () => {
 
     it('should publish', () => request
       .post('/provider/pubsub/recipient/prefix')
+      .set('x-location-group', 'location1')
       .send({ recipientId, message: messageForSingle, prefix })
       .expect(201));
 
@@ -28,9 +29,10 @@ describe('Pubsub recipient prefix', () => {
   });
 
   describe('batch request', () => {
-    
+
     it('should publish', () => request
       .post('/notification/batch')
+      .set('x-location-group', 'location1')
       .send({
         recipients: [recipientId],
         providers: { pubsub: { message: messageForBatch, prefix } }

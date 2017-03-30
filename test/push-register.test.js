@@ -21,6 +21,7 @@ describe('Device token registration', () => {
   describe('Add test data', () => {
 
     before(async() => {
+      helpers.setLocationGroup('location1');
       ctx.bigBrother = await helpers.createRandomRecipient();
       ctx.youngBrother = await helpers.createRandomRecipient();
       ctx.firstPerson = await helpers.createRandomRecipient();
@@ -46,6 +47,7 @@ describe('Device token registration', () => {
           deviceId: iPhoneDeviceId,
           token: getDeviceToken()
         })
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           assert.equal(body.recipientId, ctx.personWithTwoDevices.id);
           assert.equal(body.providerType, 'push');
@@ -67,6 +69,7 @@ describe('Device token registration', () => {
           deviceId: iPhoneDeviceId,
           token: ctx.firstDeviceToken
         })
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.firstRegisterRecipientProviderId = body.id;
         })
@@ -84,6 +87,7 @@ describe('Device token registration', () => {
           deviceId: iPhoneDeviceId,
           token: ctx.secondDeviceToken
         })
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           assert.equal(body.token, ctx.secondDeviceToken, 'changed token');
           assert.equal(body.id, ctx.firstRegisterRecipientProviderId, 'same recipient');
@@ -94,6 +98,7 @@ describe('Device token registration', () => {
     it('should not be old token', () => {
       return request.get(`/recipients/${ctx.personWithTwoDevices.id}` +
           `/profiles/push?token=${ctx.firstDeviceToken}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           assert(_.isEmpty(body));
         })
@@ -111,6 +116,7 @@ describe('Device token registration', () => {
           deviceId: iPhoneDeviceId,
           token: getDeviceToken()
         })
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.iPhoneRegister = body;
         });
@@ -123,6 +129,7 @@ describe('Device token registration', () => {
           deviceId: iPadDeviceId,
           token: getDeviceToken()
         })
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.iPadRegister = body;
         });
@@ -130,6 +137,7 @@ describe('Device token registration', () => {
 
     before(() => {
       return request.get(`/recipients/${ctx.personWithTwoDevices.id}/profiles/push`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.deviceTokens = body;
         });
@@ -161,7 +169,8 @@ describe('Device token registration', () => {
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
           token: tokenForOneInstall
-        });
+        })
+        .set('x-location-group', 'location1');
     });
 
     before(() => {
@@ -170,12 +179,14 @@ describe('Device token registration', () => {
           platform: PLATFORM_ANDROID,
           deviceId: androidDeviceId,
           token: tokenForOneInstall
-        });
+        })
+        .set('x-location-group', 'location1');
     });
 
     before(() => {
       return request.get(`/recipients/${ctx.youngBrother.id}/profiles/push` +
           `?deviceId=${androidDeviceId}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.deviceTokensForAndroid = body;
         });
@@ -183,6 +194,7 @@ describe('Device token registration', () => {
 
     before(() => {
       return request.get(`/recipients/${ctx.bigBrother.id}/profiles/push`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.deviceTokensForBigBrother = body;
         });
@@ -211,7 +223,8 @@ describe('Device token registration', () => {
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
           token: getDeviceToken()
-        });
+        })
+        .set('x-location-group', 'location1');
     });
 
     before(() => {
@@ -220,12 +233,14 @@ describe('Device token registration', () => {
           platform: PLATFORM_IOS,
           deviceId: coincidedIPhoneDeviceId,
           token: getDeviceToken()
-        });
+        })
+        .set('x-location-group', 'location1');
     });
 
     before(() => {
       return request.get(`/recipients/${ctx.firstPerson.id}/profiles/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.resultForFirstPerson = body;
         });
@@ -234,6 +249,7 @@ describe('Device token registration', () => {
     before(() => {
       return request.get(`/recipients/${ctx.secondPerson.id}/profiles/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.resultForSecondPerson = body;
         });
@@ -256,12 +272,14 @@ describe('Device token registration', () => {
 
     before(() => {
       return request.post(`/recipients/${ctx.firstPerson.id}/profiles/push/unregister`)
+        .set('x-location-group', 'location1')
         .send({ deviceId: coincidedIPhoneDeviceId });
     });
 
     before(() => {
       return request.get(`/recipients/${ctx.firstPerson.id}/profiles/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.resultForFirstPerson = body;
         });
@@ -270,6 +288,7 @@ describe('Device token registration', () => {
     before(() => {
       return request.get(`/recipients/${ctx.secondPerson.id}/profiles/push` +
           `?deviceId=${coincidedIPhoneDeviceId}`)
+        .set('x-location-group', 'location1')
         .expect(({ body }) => {
           ctx.resultForSecondPerson = body;
         });

@@ -11,11 +11,13 @@ describe('Recipient auto create hook', () => {
 
   before(() => request
     .post(`/recipients/${recipientId}/profiles/email`)
+    .set('x-location-group', 'location1')
     .send({ address, firstName, lastName })
     .expect(201));
 
   it('should be created recipient',
     () => request.get(`/recipients/${recipientId}`)
+      .set('x-location-group', 'location1')
       .expect(200)
       .expect(({ body }) => {
         assert.equal(body.id, recipientId);
@@ -25,6 +27,7 @@ describe('Recipient auto create hook', () => {
 
   it('should be not created recipient again',
     () => request.post(`/recipients/${recipientId}/profiles/email`)
+      .set('x-location-group', 'location1')
       .send({ address, firstName, lastName })
       .expect(201));
 
