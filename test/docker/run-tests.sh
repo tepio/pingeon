@@ -1,13 +1,8 @@
 #!/bin/bash
 
-# If script wasn't run in Jenkins set default tag
-if [ -z "$JOB_NAME" ]
-then
-  JOB_NAME="test-1"
-fi
+set -e
 
-# Prepare project and container names for proper status check
-PROJECT=`echo $JOB_NAME | sed "s/\-//g"`
+PROJECT=pingeon
 CONTAINER=$PROJECT"_app_1"
 
 # Build environment and run ci scripts
