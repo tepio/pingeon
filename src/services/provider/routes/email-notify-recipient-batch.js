@@ -1,4 +1,4 @@
 const emailNotifyRecipient = require('./email-notify-recipient');
 const Promise = require('bluebird');
 
-module.exports = (data) => Promise.map(data, emailNotifyRecipient);
+module.exports = (data, params) => Promise.map(data, (email) => emailNotifyRecipient(email, params));

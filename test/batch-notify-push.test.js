@@ -1,7 +1,8 @@
 require('./test-env');
 
 const { toObject } = require('node-helpers');
-const Notification = require('mongoose-multi-connect').getModel('notifications');
+const locationGroup = 'location1';
+const Notification = require('mongoose-multi-connect').getModel('notifications', locationGroup);
 
 const platform = 'android';
 const app = { name: 'android' };
@@ -9,11 +10,13 @@ const token = String(new Date());
 
 describe('Push send', () => {
 
+  before(() => helpers.setLocationGroup(locationGroup));
+
   describe('success', () => {
     let recipientId;
     const message = String(new Date());
 
-    before(async() => {
+    before(async () => {
       const recipient = await helpers.createRandomRecipient();
       recipientId = String(recipient.id);
       ctx.recipientProfile = await helpers.createRecipientProfile({
@@ -21,7 +24,7 @@ describe('Push send', () => {
       });
     });
 
-    it('should be sent', async() => {
+    it('should be sent', async () => {
       await request
         .post('/notification/batch')
         .set('x-location-group', 'location1')
@@ -46,7 +49,7 @@ describe('Push send', () => {
     let recipientWithoutApp;
     const message = String(new Date() + 'no app');
 
-    before(async() => {
+    before(async () => {
       const recipient = await helpers.createRandomRecipient();
       recipientWithoutApp = String(recipient.id);
       ctx.recipientProfile = await helpers.createRecipientProfile({
@@ -54,7 +57,7 @@ describe('Push send', () => {
       });
     });
 
-    it('should use default app', async() => {
+    it('should use default app', async () => {
       await request
         .post('/notification/batch')
         .set('x-location-group', 'location1')
