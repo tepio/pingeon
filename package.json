@@ -44,6 +44,7 @@
     "cors": "2.7.1",
     "debug": "2.2.0",
     "deep-extend": "0.4.1",
+    "express-mw-correlation-id": "3.0.0",
     "fanoutpub": "1.0.3",
     "faye": "1.1.2",
     "feathers": "2.0.1",
@@ -65,6 +66,7 @@
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "serve-favicon": "2.3.0",
+    "simple-express-logger": "2.0.0",
     "smart-config": "0.7.4",
     "source-map-support": "0.4.2",
     "worque": "0.9.3"
