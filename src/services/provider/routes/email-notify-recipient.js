@@ -5,6 +5,7 @@ const Promise = require('bluebird');
 const _ = require('lodash');
 
 module.exports = async({ recipientId, ...otherConfig }, params) => {
+  debug(params);
   const locationGroup = _.get(params, 'locationGroup');
   const RecipientProfile = multiDB.getModel('recipientprofiles', locationGroup);
   let res = await RecipientProfile.findOne({ recipientId, providerType: 'email' });
