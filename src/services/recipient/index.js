@@ -7,6 +7,6 @@ module.exports = function () {
   const app = this;
 
   app.use('/recipients', upsert);
-  app.service('/recipients', service({ app, ...schemaInfo }));
+  app.service('/recipients', service(Object.assign({ app }, schemaInfo)));
 
 };

@@ -11,7 +11,7 @@ function pub(channel, message) {
   return new Promise((resolve, reject) =>
     fanout.publish(channel, message, (success, data, context) => {
       if (!success) return reject(context);
-      const result = { message, channel, ...context };
+      const result = Object.assign({ message, channel }, context);
       debug('sent', result);
       return resolve(result);
     }));

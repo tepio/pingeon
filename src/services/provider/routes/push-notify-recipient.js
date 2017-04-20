@@ -15,7 +15,7 @@ async function getRecipientCredentials({ recipientId, message, payload, location
     _(await RecipientProfile.find({ recipientId, providerType: 'push' }))
       .uniq('token')
       .map((pushProfile) => {
-        return { recipientId, message, payload, ...pushProfile.toJSON() };
+        return Object.assign({ recipientId, message, payload }, pushProfile.toJSON());
       })
       .value()
   );

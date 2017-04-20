@@ -51,7 +51,7 @@ describe('Recipient', () => {
     it('update recipient provider', () => {
       return request.put(`/recipients/${ctx.recipient.id}/profiles/push/${ctx.recipientProvider.id}`)
         .set('x-location-group', locationGroup)
-        .send({ ...ctx.recipientProvider, address: 'new' })
+        .send(Object.assign({}, ctx.recipientProvider, { address: 'new' }))
         .expect(200)
         .expect(({ body }) => {
           assert.equal(body.recipientId, ctx.recipient.id);

@@ -31,10 +31,11 @@ function timeout(ms) {
   });
 }
 
-async function createRecipientProfile({ recipientId, address = 'some', ...other }) {
-  recipientId = recipientId || (await createRandomRecipient({ id: recipientId })).id;
+async function createRecipientProfile(recipient) {
+  recipient.recipientId = recipient.recipientId ||
+    (await createRandomRecipient({ id: recipient.recipientId })).id;
 
-  return await getRecipientProvider().create({ recipientId, address, ...other });
+  return await getRecipientProvider().create(Object.assign({}, recipient, { address: 'some' }));
 }
 
 function setLocationGroup(group) {

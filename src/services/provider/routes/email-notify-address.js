@@ -1,5 +1,5 @@
 const emailHelper = require('../../../helpers/email');
 
-module.exports = async({ address, ...otherConfig }) => {
-  return await emailHelper.send({ email: address, ...otherConfig });
+module.exports = async (emailConfig) => {
+  return await emailHelper.send(Object.assign({}, emailConfig, { email: emailConfig.address }));
 };

@@ -10,7 +10,8 @@ const recipientAutoCreate = require('../recipient/hooks/recipient-auto-create');
 module.exports = function () {
   const app = this;
 
-  app.service('/recipients/:recipientId/profiles/:providerType', service({ app, ...schemaInfo }))
+  app.service('/recipients/:recipientId/profiles/:providerType',
+    service(Object.assign({ app }, schemaInfo)))
     .before({
       all: [
         nestedService({ fk: 'recipientId' }),

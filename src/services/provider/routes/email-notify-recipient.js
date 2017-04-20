@@ -4,8 +4,9 @@ const emailHelper = require('../../../helpers/email');
 const Promise = require('bluebird');
 const _ = require('lodash');
 
-module.exports = async({ recipientId, ...otherConfig }, params) => {
+module.exports = async (emailConfig, params) => {
   debug(params);
+  const { recipientId } = emailConfig;
   const locationGroup = _.get(params, 'locationGroup');
   const RecipientProfile = multiDB.getModel('recipientprofiles', locationGroup);
   let res = await RecipientProfile.findOne({ recipientId, providerType: 'email' });
@@ -15,10 +16,10 @@ module.exports = async({ recipientId, ...otherConfig }, params) => {
   }
   res = _.map(res, 'address');
   res = _.uniq(res);
-  res = await Promise.map(res, address => {
-    return emailHelper.send({
-      email: address, recipientId, locationGroup, ...otherConfig
-    });
+  res = await Promise.map(res, (address) => {
+    return emailHelper.send(Object.assign({}, emailConfig, {
+      email: address, locationGroup
+    }));
   });
   res = _.flatten(res);
 

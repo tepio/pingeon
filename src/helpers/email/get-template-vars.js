@@ -3,10 +3,8 @@ const getRecipientNameParts = require('./get-recipient-name-parts');
 
 module.exports = async function ({ vars = {}, recipientId, toEmail, locationGroup }) {
   const nameParts = await getRecipientNameParts(recipientId, locationGroup);
-  const generatedVars = {
-    currentYear: new Date().getFullYear(),
-    ...nameParts, toEmail
-  };
-  return { ...defaultVars, ...generatedVars, ...vars };
+  const generatedVars = Object.assign({
+    currentYear: new Date().getFullYear(), toEmail
+  }, nameParts);
+  return Object.assign({}, defaultVars, generatedVars, vars);
 };
-

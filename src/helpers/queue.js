@@ -10,4 +10,4 @@ const queues = {
 
 queueClient.on('failure', debug);
 
-module.exports = { queueClient, ...queues };
+module.exports = Object.assign({ queueClient }, queues);
