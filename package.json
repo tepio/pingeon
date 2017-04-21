@@ -40,7 +40,7 @@
     "deep-extend": "0.4.1",
     "express-mw-correlation-id": "3.0.0",
     "fanoutpub": "1.0.3",
-    "faye": "1.1.2",
+    "faye": "1.2.4",
     "feathers": "2.0.1",
     "feathers-authentication": "0.7.0",
     "feathers-errors": "2.1.0",

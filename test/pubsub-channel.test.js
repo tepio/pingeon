@@ -1,17 +1,17 @@
 require('./test-env');
 
-const prefix = 'some-';
+const pubsub = require('../src/helpers/pubsub')();
+const pubsubConfig = require('smart-config').get('pubsub');
+
+const service = pubsubConfig;
+const channel = Date.now().toString();
 const messageForSingle = { field: 'some' };
 const messageForBatch = { field: 'another' };
-const recipientId = String(helpers.randomId());
-const pubsubConfig = require('smart-config').get('pubsub');
-const pubsub = require('../src/helpers/pubsub')();
-const service = pubsubConfig;
 
 describe('Pubsub recipient prefix', () => {
 
   before(() => {
-    pubsub.sub(prefix + recipientId, (res) => {
+    pubsub.sub(channel, (res) => {
       ctx.message = res;
     }, (config) => {
       ctx.config = config;
@@ -21,9 +21,9 @@ describe('Pubsub recipient prefix', () => {
   describe('single request', () => {
 
     it('should publish', () => request
-      .post('/provider/pubsub/recipient/prefix')
+      .post('/provider/pubsub/channel')
       .set('x-location-group', 'location1')
-      .send({ recipientId, message: messageForSingle, prefix, service })
+      .send({ message: messageForSingle, channel, service })
       .expect(201));
 
     it('should receive message on subscribe', done => setTimeout(() => {
@@ -39,8 +39,7 @@ describe('Pubsub recipient prefix', () => {
       .post('/notification/batch')
       .set('x-location-group', 'location1')
       .send({
-        recipients: [recipientId],
-        providers: { pubsub: { message: messageForBatch, prefix, service } }
+        providers: { pubsub: { channels: [channel], message: messageForBatch, service } }
       })
       .expect(201));
 
