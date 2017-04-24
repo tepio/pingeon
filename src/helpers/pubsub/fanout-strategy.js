@@ -1,5 +1,5 @@
 const debug = require('debug')('app:pubsub');
-
+const httpError = require('http-errors');
 const Fanout = require('fanoutpub');
 const Faye = require('faye');
 const fanoutConfig = require('smart-config').get('pubsub');
@@ -14,7 +14,7 @@ function pub(config) {
   return (channel, message) => {
     return new Promise((resolve, reject) =>
       fanout.publish(channel, message, (success, data, context) => {
-        if (!success) return reject(context);
+        if (!success) return reject(httpError(context.statusCode, context.httpBody));
         const result = Object.assign({ message, channel }, context);
 
         debug('sent', result);
