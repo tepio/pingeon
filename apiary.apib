@@ -12,7 +12,8 @@ Notification Microservice.
 
         {
             "channel": "stream",
-            "message": {"text": "Hello!"}
+            "message": {"text": "Hello!"},
+            "service": {"name": "fanout", "id": "12ds54d", "key": "5d5v85d1f2s2d" }
         }
 
 + Response 201
@@ -22,7 +23,7 @@ Notification Microservice.
             "message": {"text": "Hello!"},
             "statusCode": 200
         }
-        
+
 ## Send a pub/sub message to a recipient [/provider/pubsub/recipient]
 ### /provider/pubsub/recipient [POST]
 
@@ -30,7 +31,8 @@ Notification Microservice.
 
         {
             "recipientId": "1",
-            "message": {"text": "Hello!"}
+            "message": {"text": "Hello!"},
+            "service": {"name": "fanout", "id": "12ds54d", "key": "5d5v85d1f2s2d" }
         }
 
 + Response 201
@@ -181,7 +183,7 @@ Notification Microservice.
         "firstName": "John",
         "lastName": "Testerson"
     }
-    
+
 + Response 201
     {
         "id": "57472118fc2805aa3556770c",
@@ -190,7 +192,7 @@ Notification Microservice.
     }
 
 ### Find all recipients [GET]
-    
+
 + Response 200
     [{
         "id": "57472118fc2805aa3556770c``",
