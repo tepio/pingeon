@@ -1,9 +1,6 @@
-FROM musedlab/alpine-node
+FROM node:7.9.0-alpine
 
 MAINTAINER Vanya Andreychuk "vanya@tep.io"
-
-RUN apk add --update curl make gcc g++ python \
-    && mkdir -p /var/www/html
 
 WORKDIR /var/www/html
 
@@ -11,9 +8,7 @@ COPY .cache /var/www/html
 
 COPY run.sh /root/run.sh
 
-RUN  npm install \
-     && npm run build \
-     && npm prune --production
+RUN npm install --production
 
 EXPOSE 8080
 

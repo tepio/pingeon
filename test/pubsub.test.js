@@ -1,6 +1,6 @@
 require('./test-env');
 
-const pubsub = require('../src/helpers/pubsub');
+const pubsub = require('../src/helpers/pubsub')();
 const channel = 'some';
 const message = { field: 'some' };
 

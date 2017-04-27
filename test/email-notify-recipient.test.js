@@ -14,11 +14,13 @@ describe('Email notify recipient', () => {
 
   before(() => request
     .post(`/recipients/${recipientId}/profiles/email`)
+    .set('x-location-group', 'location1')
     .send({ address, firstName, lastName })
     .expect(201));
 
   it('should be not created recipient again',
     () => request.post('/provider/email/recipient')
+      .set('x-location-group', 'location1')
       .send({ recipientId, template, vars })
       .expect(201)
       .expect(({ body }) => {

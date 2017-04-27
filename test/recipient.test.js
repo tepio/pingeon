@@ -6,12 +6,14 @@ const recipient = {
   gender: 'male'
 };
 
+const locationGroup = 'location1';
 const lastActivity = new Date();
 
 describe('Recipient', () => {
 
   it('should register', () => {
     return request.post('/recipients')
+      .set('x-location-group', locationGroup)
       .send(recipient)
       .expect(201)
       .expect(({ body }) => {
@@ -24,6 +26,7 @@ describe('Recipient', () => {
 
   it('should updates', () => {
     return request.patch('/recipients/' + recipient.id)
+      .set('x-location-group', locationGroup)
       .send({ lastActivity })
       .expect(200)
       .expect(({ body }) => {

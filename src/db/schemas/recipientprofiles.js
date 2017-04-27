@@ -1,7 +1,6 @@
-import renameId from 'mongoose-rename-id';
-import mongoose, { Schema } from 'mongoose';
+const { Schema } = require('mongoose');
 
-const schema = new Schema({
+module.exports = new Schema({
   recipientId: {
     type: String,
     required: true
@@ -25,7 +24,4 @@ const schema = new Schema({
   deviceId: String,
   app: Object,
   token: String
-});
-schema.plugin(renameId({ newIdName: 'id', mongoose }));
-
-module.exports = mongoose.model('recipientProfile', schema);
+}, { versionKey: false });

@@ -4,8 +4,10 @@ const { createEndpointStub, publishStub } = mocks.awsStub.getStubs();
 
 const pushProvider = require('../src/helpers/push-send');
 const pushRegister = require('../src/services/recipient-profile/routes/push-register');
-const Notification = require('../src/services/notification/model');
-const RecipientProfile = require('../src/services/recipient-profile/model');
+const locationGroup = 'location1';
+const multiDB = require('mongoose-multi-connect');
+const Notification = multiDB.getModel('notifications', locationGroup);
+const RecipientProfile = multiDB.getModel('recipientprofiles', locationGroup);
 
 const platform = 'android';
 const app = { name: 'android' };
@@ -31,7 +33,7 @@ describe('Push', () => {
 
       it('should be sent', () => {
         return pushProvider
-          .send({ platform, token, message, payload, app })
+          .send({ platform, token, message, payload, app, locationGroup })
           .then(async res => {
             assert.equal(res.platform, platform);
             assert.equal(res.app, app);
@@ -57,11 +59,13 @@ describe('Push', () => {
       });
 
       before(() => {
-        pushProvider.send({ platform, token, message, payload, app });
+        pushProvider.send({ platform, token, message, payload, app, locationGroup });
       });
 
-      it('should be fail', async() => {
-        assert.ok(await Notification.findOne({ error }));
+      it('should be fail', async () => {
+        await helpers.timeout(500);
+        const res = await Notification.findOne({ error });
+        assert.ok(res);
       });
 
     });
@@ -73,11 +77,11 @@ describe('Push', () => {
     const oldTokenError = { message: 'Invalid parameter: This endpoint is already registered with a different token.' };
     const oldToken = String(new Date());
 
-    before(async() => {
-      await pushRegister({ token: oldToken, deviceId: 'some', recipientId: 'some', app });
+    before(async () => {
+      await pushRegister({ token: oldToken, deviceId: 'some', recipientId: 'some', app }, { locationGroup });
     });
 
-    before(async() => {
+    before(async () => {
       const res = await RecipientProfile.findOne({ token: oldToken });
       assert.ok(res);
     });
@@ -88,10 +92,11 @@ describe('Push', () => {
     });
 
     before(() => {
-      pushProvider.send({ platform, token: oldToken, message, payload, app });
+      pushProvider.send({ platform, token: oldToken, message, payload, app, locationGroup });
     });
 
-    it('should be no old device token', async() => {
+    it('should be no old device token', async () => {
+      await helpers.timeout(500);
       const res = await RecipientProfile.findOne({ token: oldToken });
       assert.ok(!res);
     });

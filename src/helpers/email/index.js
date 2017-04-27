@@ -8,35 +8,31 @@ const getTemplateId = require('./get-template-id');
 const getTemplateVars = require('./get-template-vars');
 const client = promisifyAll(new postmark.Client(emailConfig.key));
 
-const send = async({ email, from, to, cc, bcc, subject, message, template, vars, recipientId }) => {
+const send = async ({ email, from, to, cc, bcc, subject, message, template, vars, recipientId, locationGroup }) => {
   try {
     const toEmail = email || to;
     const options = {
       From: from || emailConfig.from,
-      To: toEmail,
-      Cc: cc,
-      Bcc: bcc
+      To: toEmail, Cc: cc, Bcc: bcc
     };
 
     if (template) {
       const templateId = getTemplateId(template);
-      const resultVars = await getTemplateVars({ vars, toEmail, recipientId });
+      const resultVars = await getTemplateVars({ vars, toEmail, recipientId, locationGroup });
 
-      return await client.sendEmailWithTemplateAsync({
+      return await client.sendEmailWithTemplateAsync(Object.assign({
         TemplateId: templateId,
         TemplateModel: resultVars,
-        ...options
-      });
+      }, options));
     }
 
-    return await client.sendEmailAsync({
+    return await client.sendEmailAsync(Object.assign({
       TextBody: message,
-      Subject: subject,
-      ...options
-    });
+      Subject: subject
+    }, options));
 
   } catch (err) {
-    debug(err);
+    debug(err, { locationGroup });
     return err;
   }
 };

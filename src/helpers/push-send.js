@@ -10,7 +10,7 @@ const AWS = require('aws-sdk');
 AWS.config.update({ accessKeyId: key, secretAccessKey: secret, region });
 const sns = promisifyAll(new AWS.SNS());
 
-async function send({ app, platform, token, message, payload }) {
+async function send({ app, platform, token, message, payload, locationGroup }) {
   try {
     const platformApplicationArn = awsUtils.getPlatformApplicationArn(app);
     const pushMessage = awsUtils.getPushMessage({ platform, message, payload });
@@ -27,13 +27,12 @@ async function send({ app, platform, token, message, payload }) {
     });
 
     return pushReceiveStatus.saveSuccessful({
-      platformApplicationArn,
-      providerMessageId: MessageId,
-      platform, token, message, payload, app
+      platformApplicationArn, providerMessageId: MessageId,
+      platform, token, message, payload, app, locationGroup
     });
   } catch (error) {
-    if (awsUtils.isOldToken(error)) return awsUtils.deleteOldToken(token);
-    pushReceiveStatus.saveFailed({ platform, token, message, payload, error });
+    if (awsUtils.isOldToken(error)) return awsUtils.deleteOldToken(token, locationGroup);
+    pushReceiveStatus.saveFailed({ platform, token, message, payload, error, locationGroup });
     throw error;
   }
 }

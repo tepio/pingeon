@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
 
-import mocks from './global-mocks';
-import assert from 'assert';
-import sinon from 'sinon';
-import mockery from 'mockery';
-import request from 'supertest-promised';
-import app from '../src/app';
+const mocks = require('./global-mocks');
+const assert = require('assert');
+const sinon = require('sinon');
+const mockery = require('mockery');
+const request = require('supertest-promised');
+const app = require('../src/app');
 
 global.request = request(app);
 global.mocks = mocks;

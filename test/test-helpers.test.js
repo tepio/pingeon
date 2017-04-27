@@ -3,6 +3,8 @@ const providerType = 'push';
 
 describe('Test helpers', () => {
 
+  before(() => helpers.setLocationGroup('location1'));
+
   describe('create recipient than profile', () => {
     before(async() => {
       ctx.recipient = await helpers.createRandomRecipient();

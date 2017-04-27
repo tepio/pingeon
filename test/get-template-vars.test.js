@@ -2,6 +2,7 @@ require('./test-env');
 const { isMatch } = require('lodash');
 const getTemplateVars = require('../src/helpers/email/get-template-vars');
 
+const locationGroup = 'location1';
 let recipient = { firstName: 'John', lastName: 'Testerson' };
 const defaultVars = require('smart-config').get('email.defaultVars');
 const vars = {
@@ -15,6 +16,7 @@ describe('Get template vars', () => {
   describe('User exist', () => {
     before(() => request
       .post('/recipients')
+      .set('x-location-group', locationGroup)
       .send(recipient)
       .expect(201)
       .expect(({ body }) => {
@@ -22,7 +24,7 @@ describe('Get template vars', () => {
       }));
 
     it('should have all expected vars', async() => {
-      const resultVars = await getTemplateVars({ vars, toEmail, recipientId: recipient.id });
+      const resultVars = await getTemplateVars({ vars, toEmail, recipientId: recipient.id, locationGroup });
 
       assert.equal(resultVars.firstName, recipient.firstName);
       assert.equal(resultVars.lastName, recipient.lastName);
@@ -36,7 +38,7 @@ describe('Get template vars', () => {
 
     let resultVars;
     before(async() => {
-      resultVars = await getTemplateVars({ vars, toEmail, recipientId: helpers.randomId() });
+      resultVars = await getTemplateVars({ vars, toEmail, recipientId: helpers.randomId(), locationGroup });
     });
 
     it('should have all expected vars', () => {

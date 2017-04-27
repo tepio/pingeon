@@ -1,8 +1,12 @@
-const RecipientProvider = require('../../src/services/recipient-profile/model');
-const Recipient = require('../../src/services/recipient/model');
+const multiConnect = require('mongoose-multi-connect');
+
 const db = require('./db');
 const { ObjectId } = require('mongoose').mongo;
 const requireSubvert = require('require-subvert')(__dirname);
+
+let locationGroup;
+const getRecipientProvider = () => multiConnect.getModel('recipientprofiles', locationGroup);
+const getRecipient = () => multiConnect.getModel('recipients', locationGroup);
 
 function requireStub(path) {
   return (value) => {
@@ -10,13 +14,12 @@ function requireStub(path) {
   };
 }
 
-
 function randomId() {
   return new ObjectId();
 }
 
 function createRandomRecipient(recipient) {
-  return Recipient.create(Object.assign({
+  return getRecipient().create(Object.assign({
     firstName: 'John',
     lastName: 'Testerson'
   }, recipient));
@@ -28,10 +31,15 @@ function timeout(ms) {
   });
 }
 
-async function createRecipientProfile({ recipientId, address = 'some', ...other }) {
-  recipientId = recipientId || (await createRandomRecipient({ id: recipientId })).id;
+async function createRecipientProfile(recipient) {
+  recipient.recipientId = recipient.recipientId ||
+    (await createRandomRecipient({ id: recipient.recipientId })).id;
 
-  return await RecipientProvider.create({ recipientId, address, ...other });
+  return await getRecipientProvider().create(Object.assign({}, recipient, { address: 'some' }));
+}
+
+function setLocationGroup(group) {
+  locationGroup = group;
 }
 
 module.exports = {
@@ -40,5 +48,6 @@ module.exports = {
   db,
   timeout,
   randomId,
-  requireStub
+  requireStub,
+  setLocationGroup
 };

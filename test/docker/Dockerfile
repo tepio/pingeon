@@ -1,4 +1,4 @@
-FROM musedlab/alpine-node
+FROM node:7.9.0-alpine
 
 # Create app directory
 RUN mkdir -p /usr/src/app
