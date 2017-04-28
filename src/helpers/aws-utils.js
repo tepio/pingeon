@@ -21,11 +21,18 @@ function getPushMessage({ platform, message, payload }) {
 }
 
 function getPlatformApplicationArn(app) {
-  app = _.get(app, 'name') || app || defaultApp;
-
-  const appArn = appsArns[app];
-  if (!appArn) throw new Error('No ARN for the app ' + app);
+  const appArn = getAppName(app, appsArns);
+  if (!appArn) throw new Error('No ARN for the app ' + JSON.stringify(app));
   return appArn;
+}
+
+function getAppName(app, appsArns) {
+  const singeAppName = _.get(app, 'appName') + _.get(app, 'name');
+  const singeAppArn = appsArns[singeAppName];
+  if (singeAppArn) return singeAppArn;
+
+  const appName = _.get(app, 'name') || app || defaultApp;
+  return appsArns[appName];
 }
 
 function getLogGroup(platformApplicationArn) {
