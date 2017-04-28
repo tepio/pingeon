@@ -1,5 +1,3 @@
-require('source-map-support').install();
-
 const app = require('./app');
 const debug = require('debug')('app');
 const config = require('smart-config');
