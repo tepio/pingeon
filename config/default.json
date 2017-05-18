@@ -34,5 +34,10 @@
   },
   "amqp": {
     "url": "amqp://localhost"
+  },
+  "sms": {
+    "fromNumber": "OWNER_PHONE_NUMBER",
+    "accountSid":"TWILIO_ACCOUNT_SID",
+    "authToken":"TWILIO_AUTH_TOKEN"
   }
 }

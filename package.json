@@ -58,7 +58,8 @@
     "promdash": "1.1.0",
     "raven": "0.12.1",
     "simple-express-logger": "2.0.0",
-    "smart-config": "0.8.0"
+    "smart-config": "0.8.0",
+    "twilio": "3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "6.0.2",
