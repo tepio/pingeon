@@ -1,4 +1,4 @@
-require('./test-env');
+require('../test-env');
 
 const message = {
   body: 'testing message :). vanya.',
