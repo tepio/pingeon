@@ -7,6 +7,7 @@ const emailNotifyAddress = require('./routes/email-notify-address');
 const emailNotifyRecipient = require('./routes/email-notify-recipient');
 const emailNotifyRecipientBatch = require('./routes/email-notify-recipient-batch');
 const batchNotification = require('./routes/batch-notification');
+const smsNotifyRecipient = require('./routes/sms-notify-recipient');
 
 const validate = require('../../hooks/validate');
 const batchDataValidation = require('./validations/batch-notify-data');
@@ -29,6 +30,8 @@ module.exports = function () {
   app.service('/provider/email/recipient/batch', { create: emailNotifyRecipientBatch });
 
   app.service('/provider/email/recipient', { create: emailNotifyRecipient });
+
+  app.service('/provider/sms/recipient', { create: smsNotifyRecipient });
 
   app
     .service('/notification/batch', { create: batchNotification })
