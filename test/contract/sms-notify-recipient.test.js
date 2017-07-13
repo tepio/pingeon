@@ -2,7 +2,7 @@ require('../test-env');
 
 const message = {
   body: 'testing message :). vanya.',
-  recipientNumber: '+13346498383'
+  recipientNumber: '' // need your phone number
 };
 
 describe('Send SMS via TWILIO', () => {
