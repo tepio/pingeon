@@ -16,6 +16,10 @@ const send = async ({ email, from, to, cc, bcc, subject, message, template, vars
       To: toEmail, Cc: cc, Bcc: bcc
     };
 
+    if (subject) {
+      options.Subject = subject;
+    }
+
     if (template) {
       const templateId = getTemplateId(template);
       const resultVars = await getTemplateVars({ vars, toEmail, recipientId, locationGroup });
