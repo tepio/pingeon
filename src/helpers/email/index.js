@@ -12,9 +12,10 @@ const send = async ({ email, from, to, cc, bcc, subject, message, template, vars
   try {
     const toEmail = email || to;
     const options = {
-      From: from || emailConfig.from,
+      From: `Hatch Safety <${from || emailConfig.from}>`,
       To: toEmail, Cc: cc, Bcc: bcc
     };
+
 
     if (template) {
       const templateId = getTemplateId(template);
