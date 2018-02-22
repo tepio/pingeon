@@ -11,6 +11,7 @@
   "email": {
     "key": "EMAIL_KEY",
     "from": "EMAIL_FROM",
+    "from_label": "FROM_LABEL",
     "defaultVars": "EMAIL_DEFAULT_VARS",
     "templatesMap": "EMAIL_TEMPLATES_MAP"
   },

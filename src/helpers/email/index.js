@@ -11,8 +11,12 @@ const client = promisifyAll(new postmark.Client(emailConfig.key));
 const send = async ({ email, from, to, cc, bcc, subject, message, template, vars, recipientId, locationGroup }) => {
   try {
     const toEmail = email || to;
+    let fromEmail = from || emailConfig.from;
+    if (emailConfig.from_label) {
+      fromEmail = emailConfig.from_label.replace('/[email]/', from || emailConfig.from);
+    }
     const options = {
-      From: from || emailConfig.from,
+      From: fromEmail,
       To: toEmail, Cc: cc, Bcc: bcc
     };
 
