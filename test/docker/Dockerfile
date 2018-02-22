@@ -1,4 +1,4 @@
-FROM node:7.7.4-alpine
+FROM node:7.10.0-alpine
 
 # Create app directory
 RUN mkdir -p /usr/src/app
