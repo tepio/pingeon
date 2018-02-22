@@ -24,7 +24,7 @@ else
         exit 1
     fi
 
-    if [ -z "$REPOSITORY_TAG" ] 
+    if [ -z "$REPOSITORY_TAG" ]
     then
         echo "[ERROR] Specify REPOSITORY_TAG Example: BUILD_TYPE='release' REPOSITORY_TAG='v0.0.1' ./build.sh"
         exit 1
