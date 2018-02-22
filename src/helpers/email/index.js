@@ -14,9 +14,9 @@ const send = async ({ email, from, to, cc, bcc, subject, message, template, vars
 
     let fromEmail = from || emailConfig.from;
     if (emailConfig.from_label && emailConfig.from_label.search('[email]') !== -1) {
-      fromEmail = emailConfig.from_label.replace('/[email]/', from || emailConfig.from);
+      fromEmail = emailConfig.from_label.replace('[email]', from || emailConfig.from);
     }
-
+    
     const options = {
       From: fromEmail,
       To: toEmail, Cc: cc, Bcc: bcc
