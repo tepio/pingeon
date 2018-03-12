@@ -11,6 +11,7 @@
   "email": {
     "key": "EMAIL_KEY",
     "from": "EMAIL_FROM",
+    "from_label": "Hatch Safety <[email]>",
     "defaultVars": {
       "companyName": "test",
       "companyLogo": "https://s-media-cache-ak0.pinimg.com/736x/3f/26/f7/3f26f736feb2c0878919db2cdbaee096.jpg"
