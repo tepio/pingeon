@@ -33,7 +33,7 @@ else
     GIT_COMMIT=$REPOSITORY_TAG;
 fi
 
-eval $(aws ecr get-login --region us-east-1)
+eval $(aws ecr get-login --region us-east-1 --no-include-email)
 
 rm -rf ./_build/.cache/
 git clone $GIT ./_build/.cache/
