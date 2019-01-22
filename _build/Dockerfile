@@ -13,6 +13,6 @@ RUN npm install --production
 EXPOSE 8080
 
 
-HEALTHCHECK CMD curl -f 127.0.0.1:8080 || exit 1
+#HEALTHCHECK CMD curl -f 127.0.0.1:8080 || exit 1
 
 CMD ["/root/run.sh"]
